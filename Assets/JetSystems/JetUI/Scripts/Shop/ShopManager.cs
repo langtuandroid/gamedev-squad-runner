@@ -306,7 +306,7 @@ namespace JetSystems
                     rotatingItemParent.GetChild(i).gameObject.SetActive(true);
 
                     //TODO : This is replaced by the callback up here
-                    //itemParent.GetChild(i).gameObject.SetActive(true);
+                    itemParent.GetChild(i).gameObject.SetActive(true);
                 }
                 else
                 {

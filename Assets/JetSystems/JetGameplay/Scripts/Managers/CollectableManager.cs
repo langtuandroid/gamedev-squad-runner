@@ -30,7 +30,6 @@ namespace JetSystems
                 default:
                     break;
             }
-
             
         }
 
