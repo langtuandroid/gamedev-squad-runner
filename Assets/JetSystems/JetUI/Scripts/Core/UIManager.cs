@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using Audio;
+using UI;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +12,7 @@ namespace JetSystems
         public enum Orientation { Portrait, Landscape }
         public Orientation orientation;
 
-        public enum GameState { MENU, GAME, LEVELCOMPLETE, GAMEOVER, SETTINGS, SHOP }
+        public enum GameState { MENU, LEVELSELECT, GAME, LEVELCOMPLETE, GAMEOVER, SETTINGS, SHOP, PAUSE }
         public static GameState gameState;
 
         #region Static Variables
@@ -21,29 +24,13 @@ namespace JetSystems
 
         #region Delegates
 
-        public delegate void SetMenuDelegate();
-        public static SetMenuDelegate setMenuDelegate;
-
-        public delegate void OnMenuSet();
-        public static OnMenuSet onMenuSet;
-
-        
-
-        public delegate void SetGameDelegate();
-        public static SetGameDelegate setGameDelegate;
-
-        public delegate void OnGameSet();
-        public static OnGameSet onGameSet;
-
-
-
         public delegate void SetLevelCompleteDelegate(int starsCount = 3);
         public static SetLevelCompleteDelegate setLevelCompleteDelegate;
 
         public delegate void OnLevelCompleteSet(int starsCount = 3);
         public static OnLevelCompleteSet onLevelCompleteSet;
 
-
+        public static event Action LevelComplete;
 
         public delegate void SetGameoverDelegate();
         public static SetGameoverDelegate setGameoverDelegate;
@@ -52,55 +39,51 @@ namespace JetSystems
         public static OnGameoverSet onGameoverSet;
 
 
-        public delegate void SetSettingsDelegate();
-        public static SetSettingsDelegate setSettingsDelegate;
-
-        public delegate void OnSettingsSet();
-        public static OnSettingsSet onSettingsSet;
-
-
-
         public delegate void UpdateProgressBarDelegate(float value);
         public static UpdateProgressBarDelegate updateProgressBarDelegate;
 
-
-
-        public delegate void OnNextLevelButtonPressed();
-        public static OnNextLevelButtonPressed onNextLevelButtonPressed;
-
-        public delegate void OnRetryButtonPressed();
-        public static OnRetryButtonPressed onRetryButtonPressed;
+        
+        public static event Action<int> onNextLevelButtonPressed;
+        public static event Action<int> onRetryButtonPressed;
+        
+        public static event Action ActiveRuning;
+        public static event Action StopRuning;
 
         #endregion
 
 
         // Canvas Groups
         public CanvasGroup MENU;
+        public CanvasGroup LEVELSELECT;
         public CanvasGroup GAME;
         public CanvasGroup LEVELCOMPLETE;
         public CanvasGroup GAMEOVER;
         public CanvasGroup SETTINGS;
+        public CanvasGroup PAUSE;
         public ShopManager shopManager;
         public CanvasGroup[] canvases;
 
+      
+
         // Menu UI
         public Text menuCoinsText;
+        
+        // Level Select UI
+        public LevelSelectManager LevelSelectManager;
+        public Text levelSelectCoinsText;
 
         // Game UI
         public Slider progressBar;
         public Text gameCoinsText;
         public Text levelText;
+        public GameObject PlayButton;
 
         // Shop UI
         public Text shopCoinsText;
 
         // Level Complete UI
         public Text levelCompleteCoinsText;
-
         
-
-        
-
         private void Awake()
         {
             if (instance == null)
@@ -115,7 +98,7 @@ namespace JetSystems
         void Start()
 		{
             // Store the canvases
-            canvases = new CanvasGroup[] { MENU, GAME, LEVELCOMPLETE, GAMEOVER, SETTINGS };
+            canvases = new CanvasGroup[] { MENU,LEVELSELECT, GAME, LEVELCOMPLETE, GAMEOVER, SETTINGS, PAUSE };
 
             // Configure the delegates
             ConfigureDelegates();
@@ -127,11 +110,11 @@ namespace JetSystems
         private void ConfigureDelegates()
         {
             // Basic events
-            setMenuDelegate += SetMenu;
-            setGameDelegate += SetGame;
+           // setMenuDelegate += SetMenu;
+           // setGameDelegate += SetGame;
             setLevelCompleteDelegate += SetLevelComplete;
             setGameoverDelegate += SetGameover;
-            setSettingsDelegate += SetSettings;
+            //setSettingsDelegate += SetSettings;
 
             // Progress bar events
             updateProgressBarDelegate += UpdateProgressBar;
@@ -141,11 +124,11 @@ namespace JetSystems
         {
 
             // Basic events
-            setMenuDelegate -= SetMenu;
-            setGameDelegate -= SetGame;
+            //setMenuDelegate -= SetMenu;
+            //setGameDelegate -= SetGame;
             setLevelCompleteDelegate -= SetLevelComplete;
             setGameoverDelegate -= SetGameover;
-            setSettingsDelegate -= SetSettings;
+            //setSettingsDelegate -= SetSettings;
 
             // Progress bar events
             updateProgressBarDelegate -= UpdateProgressBar;
@@ -160,84 +143,96 @@ namespace JetSystems
 
         public void SetMenu()
         {
-            
+            StopRuning?.Invoke();
+            Time.timeScale = 1f;
             gameState = GameState.MENU;
             Utils.HideAllCGs(canvases, MENU);
-
-            // Hide the shop
             shopManager.gameObject.SetActive(false);
-
-            // Invoke the delegate
-            onMenuSet?.Invoke();
-            
+        }
+        
+        public void SetLevelSelect()
+        {
+            gameState = GameState.LEVELSELECT;
+            Utils.HideAllCGs(canvases, LEVELSELECT);
+            LevelSelectManager.RefreshLevelsView();
         }
 
         public void SetGame()
         {
-            gameState = GameState.GAME;
+            StopRuning?.Invoke();
             Utils.HideAllCGs(canvases, GAME);
-
-            // Invoke the delegate
-            onGameSet?.Invoke();
-
-            // Reset the progress bar
+            PlayButton.SetActive(true);
             progressBar.value = 0;
-
+            levelText.text = "Level " + (LevelSelectManager.LevelSelected);
+        }
+        public void StartGame()
+        {
+            gameState = GameState.GAME;
+            ActiveRuning.Invoke();
+            progressBar.value = 0;
             // Update the level text
-            levelText.text = "Level " + (PlayerPrefsManager.GetLevel() + 1);
-            Audio_Manager.instance.play("Play");
+            levelText.text = "Level " + LevelSelectManager.LevelSelected;
+            AudioManager.Instance.PlaySFXOneShot(0);
         }
 
         public void SetLevelComplete(int starsCount = 3)
         {
             gameState = GameState.LEVELCOMPLETE;
             Utils.HideAllCGs(canvases, LEVELCOMPLETE);
-
-            // Invoke the delegate
             onLevelCompleteSet?.Invoke(starsCount);
+            LevelComplete?.Invoke();
+            
            // Audio_Manager.instance.play("Level_Complete");
-            Invoke("AdsControl", 2f);
+            //Invoke("AdsControl", 2f);
             
            
         }
 
         private void AdsControl()
         {
-//            AdManager.instance.ShowInterstitialAd();
+          // AdManager.instance.ShowInterstitialAd();
         } 
 
         public void SetGameover()
         {
             gameState = GameState.GAMEOVER;
             Utils.HideAllCGs(canvases, GAMEOVER);
-
-            // Invoke the delegate
             onGameoverSet?.Invoke();
-            Audio_Manager.instance.play("Game_Over");
-            Invoke("AdsControl", 2f);
-            
+            AudioManager.Instance.PlaySFXOneShot(2);
+            //Invoke("AdsControl", 2f);
         }
-
-        
 
         public void SetSettings()
         {
-            gameState = GameState.SETTINGS;
-            Utils.EnableCG(MENU);
-            Utils.HideAllCGs(canvases, SETTINGS);
-
-            // Invoke the delegate
-            onSettingsSet?.Invoke();
+            Utils.EnableCG(SETTINGS);
         }
+        
+        public void CloseSettings()
+        {
+            Utils.DisableCG(SETTINGS);
+        }
+        
+        public void SetPause()
+        {
+            gameState = GameState.PAUSE;
+            StopRuning?.Invoke();
+            Time.timeScale = 0f;
+            Utils.EnableCG(PAUSE);
+        }
+        
+        public void PauseDisable()
+        {
+            gameState = GameState.GAME;
+            Time.timeScale = 1f;
+            ActiveRuning.Invoke();
+            Utils.DisableCG(PAUSE);
+        }
+        
 
         public void SetShop()
         {
             gameState = GameState.SHOP;
-
-            // Enable the shop gameobject
             shopManager.gameObject.SetActive(true);
-
-            // Hide all the other canvases
             Utils.HideAllCGs(canvases);
         }
 
@@ -253,29 +248,23 @@ namespace JetSystems
 
         public void NextLevelButtonCallback()
         {
-            SetMenu();
-            
-            // Invoke the next button delegate
-            onNextLevelButtonPressed?.Invoke();
-
-            SceneManager.LoadScene(0);
-            
+            StopRuning?.Invoke();
+            int Nextlevel = PlayerPrefsManager.GetLevel() + 1;
+            onNextLevelButtonPressed?.Invoke(Nextlevel);
+            SetLevelSelect();
+            //SceneManager.LoadScene(0);
         }
 
         public void RetryButtonCallback()
         {
-            SetMenu();
-           
-            // Invoke the retry button delegate
-            onRetryButtonPressed?.Invoke();
-            SceneManager.LoadScene(0);
-            
-
-        }
-
-        public void CloseSettings()
-        {
-            SetMenu();
+            if (gameState == GameState.PAUSE)
+            {
+                Time.timeScale = 1f;
+                Utils.DisableCG(PAUSE);
+            }
+            int Presentlevel = PlayerPrefsManager.GetLevel();
+            onRetryButtonPressed?.Invoke(Presentlevel);
+            SetGame();
         }
 
         public void UpdateProgressBar(float value)
@@ -289,6 +278,7 @@ namespace JetSystems
             gameCoinsText.text = menuCoinsText.text;
             shopCoinsText.text = menuCoinsText.text;
             levelCompleteCoinsText.text = menuCoinsText.text;
+            levelSelectCoinsText.text = menuCoinsText.text;
         }
 
         #region Static Methods

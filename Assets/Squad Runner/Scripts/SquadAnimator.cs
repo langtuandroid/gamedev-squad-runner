@@ -10,31 +10,20 @@ public class SquadAnimator : MonoBehaviour
 
     private void Awake()
     {
-        UIManager.onGameSet += StartRunning;
-        UIManager.onLevelCompleteSet += StopRunning;
-        UIManager.onMenuSet += StopRunning;
-        UIManager.onGameoverSet += StopRunning;
+        UIManager.ActiveRuning += StartRunning;
+        UIManager.StopRuning += StopRunning;
+        // UIManager.onMenuSet += StopRunning;
+        // UIManager.onGameoverSet += StopRunning;
     }
 
     private void OnDestroy()
     {
-        UIManager.onGameSet -= StartRunning;
-        UIManager.onLevelCompleteSet -= StopRunning;
-        UIManager.onMenuSet -= StopRunning;
-        UIManager.onGameoverSet -= StopRunning;
+        UIManager.ActiveRuning -= StartRunning;
+        UIManager.StopRuning -= StopRunning;
+        // UIManager.onMenuSet -= StopRunning;
+        // UIManager.onGameoverSet -= StopRunning;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     private void StartRunning()
     {

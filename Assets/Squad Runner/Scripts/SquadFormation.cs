@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using JetSystems;
 using UnityEngine;
 using TMPro;
 
@@ -13,21 +13,19 @@ public class SquadFormation : MonoBehaviour
     [SerializeField] private float radiusFactor;
     [Range(0f, 1f)]
     [SerializeField] private float angleFactor;
+    [SerializeField]
+    private Runner _runnerPrefab;
 
-    [Header(" Settings ")]
-    [SerializeField] private Runner runnerPrefab;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         FermatSpiralPlacement();
         squadAmountText.text = transform.childCount.ToString();
+    }
+
+   
+    public void SetCharacter(GameObject runner)
+    {
+        _runnerPrefab = runner.GetComponent<Runner>();
     }
 
     private void FermatSpiralPlacement()
@@ -53,7 +51,7 @@ public class SquadFormation : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            Runner runnerInstance = Instantiate(runnerPrefab, transform);
+            Runner runnerInstance = Instantiate(_runnerPrefab, transform);
             runnerInstance.StartRunning();
             runnerInstance.name = "Runner_" + runnerInstance.transform.GetSiblingIndex();
         }

@@ -9,7 +9,7 @@ namespace JetSystems
         [Header(" Debug ")]
         public bool DEBUG;
         public int levelToPlay;
-        int level;
+        private int _presentMaxOpenLevel;
 
         [Header(" Road Chunks ")]
         public RoadChunk initialChunk;
@@ -24,10 +24,10 @@ namespace JetSystems
         List<RoadChunk> levelChunks = new List<RoadChunk>();
 
         static RoadManager instance;
-
+        private int _presentlevel;
         private void Awake()
         {
-            level = PlayerPrefs.GetInt("LEVEL");
+            _presentMaxOpenLevel = PlayerPrefsManager.GetLevel();
         }
 
         // Start is called before the first frame update
@@ -35,34 +35,35 @@ namespace JetSystems
         {
             instance = this;
 
-            UIManager.onLevelCompleteSet += IncreaseLevelIndex;
-            UIManager.onNextLevelButtonPressed += SpawnLevel;
+            UIManager.LevelComplete += IncreaseLevelIndex;
+            UIManager.onNextLevelButtonPressed += CreateLevel;
             UIManager.onRetryButtonPressed += RetryLevel;
 
-            SpawnLevel();
+            //SpawnLevel();
         }
 
         private void OnDestroy()
         {
-            UIManager.onLevelCompleteSet -= IncreaseLevelIndex;
-            UIManager.onNextLevelButtonPressed -= SpawnLevel;
+            UIManager.LevelComplete -= IncreaseLevelIndex;
+            UIManager.onNextLevelButtonPressed -= CreateLevel;
             UIManager.onRetryButtonPressed -= RetryLevel;
         }
-
-        // Update is called once per frame
-        void Update()
+        
+        private void IncreaseLevelIndex()
         {
-
+            Debug.Log("_presentlevel= " +_presentlevel);
+            if (_presentlevel == PlayerPrefsManager.GetLevel())
+            {
+                Debug.Log("_presentMaxOpenLevel= " +_presentMaxOpenLevel);
+                
+                PlayerPrefsManager.SaveLevel(PlayerPrefsManager.GetLevel()+1);
+                _presentMaxOpenLevel = PlayerPrefsManager.GetLevel();
+            }
         }
 
-        private void IncreaseLevelIndex(int useless)
+        public void CreateLevel(int levelSelected)
         {
-            level++;
-            PlayerPrefs.SetInt("LEVEL", level);
-        }
-
-        public void SpawnLevel()
-        {
+            _presentlevel = levelSelected;
             // Delete the children
             ClearLevel();
 
@@ -70,7 +71,7 @@ namespace JetSystems
 
             spawnPos = Vector3.zero;
 
-            int currentLevel = level;
+            int currentLevel = levelSelected;
 
             if (DEBUG)
                 currentLevel = levelToPlay;
@@ -80,7 +81,10 @@ namespace JetSystems
                 SpawnLevelSequence(Random.Range(0, levelSequences.Length));
             }
             else
+            {
                 SpawnLevelSequence(currentLevel);
+            }
+
         }
 
         private void SpawnLevelSequence(int currentLevel)
@@ -120,7 +124,7 @@ namespace JetSystems
             return finishPos;
         }
 
-        public void RetryLevel()
+        public void RetryLevel(int level)
         {
             ClearLevel();
             spawnPos = Vector3.zero;

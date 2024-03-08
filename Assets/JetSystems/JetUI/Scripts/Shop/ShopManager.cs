@@ -19,7 +19,8 @@ namespace JetSystems
 
         [Header(" Managers ")]
         public UIManager uiManager;
-
+        [SerializeField]
+        private SquadController _squadController;
         [Header(" Settings ")]
         public Transform itemParent;
         public Transform buttonsParent;
@@ -65,6 +66,7 @@ namespace JetSystems
         private void OnEnable()
         {
             OpenShop();
+            ShowItem(PlayerPrefsManager.GetSelectHeroModel());
         }
 
 
@@ -89,7 +91,7 @@ namespace JetSystems
                 ShopButton shopButton = buttonsParent.GetChild(i).GetComponent<ShopButton>();
                 shopButton.Configure(itemsSprites[i]);
 
-                if (i == 0)
+                if (i == PlayerPrefsManager.GetSelectHeroModel())
                     shopButton.SetSelected(true);
 
                 shopButtons[i] = shopButton;
@@ -156,18 +158,25 @@ namespace JetSystems
 
         void SelectItem(int itemIndex)
         {
- 
-
             for (int i = 0; i < shopButtons.Length; i++)
             {
                 if (i == itemIndex)
+                {
                     shopButtons[i].SetSelected(true);
+                    //ChooseCharacter(i);
+                }
                 else
                     shopButtons[i].SetSelected(false);
             }
 
             ShowItem(itemIndex);
         }
+
+        private void ChooseCharacter(int indexCharacter)
+        {
+            PlayerPrefsManager.SaveSelectHeroModel(indexCharacter);
+            _squadController.SelectNewCharacter();
+        } 
 
         // Update is called once per frame
         void Update()
@@ -306,6 +315,7 @@ namespace JetSystems
                     rotatingItemParent.GetChild(i).gameObject.SetActive(true);
 
                     //TODO : This is replaced by the callback up here
+                    ChooseCharacter(itemIndex);
                     itemParent.GetChild(i).gameObject.SetActive(true);
                 }
                 else
@@ -329,13 +339,11 @@ namespace JetSystems
         bool IsItemUnlocked(int itemIndex)
         {
             return PlayerPrefsManager.GetItemUnlockedState(itemIndex) == 1;
-            //return (PlayerPrefs.GetInt("ITEMUNLOCKED" + itemIndex) == 1);
         }
 
         void UnlockItem(int itemIndex)
         {
             PlayerPrefsManager.SetItemUnlockedState(itemIndex, 1);
-            //PlayerPrefs.SetInt("ITEMUNLOCKED" + itemIndex, 1);
         }
     }
 }

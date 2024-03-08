@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using JetSystems;
 
@@ -7,34 +6,27 @@ public class SquadDetection : MonoBehaviour
 {
     [Header(" Managers ")]
     [SerializeField] private SquadFormation squadFormation;
-    [SerializeField] private Runner runner;
+    private Runner _runner;
 
     [Header(" Settings ")]
     [SerializeField] private LayerMask doorLayer;
     [SerializeField] private LayerMask finishLayer;
     [SerializeField] private LayerMask obstacleLayer;
-
-   
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
         if (UIManager.IsGame())
         {
             DetectDoors();
             DetectFinishLine();
             DetectionObstacles();
-
         }
     }
 
-    
+    public void SetCharacter(GameObject runner)
+    {
+        _runner = runner.GetComponent<Runner>();
+    }
 
     private void DetectDoors()
     {
@@ -56,21 +48,18 @@ public class SquadDetection : MonoBehaviour
         {
             FindObjectOfType<FinishLine>().PlayConfettiParticles();
             SetLevelComplete();
-
         }
-
     }
 
     private void DetectionObstacles()
     {
         if (Physics.OverlapSphere(transform.position, 0.5f, obstacleLayer).Length > 0)
         {
-            runner.Explode();
-            
+            if (_runner != null)
+            {
+                _runner.Explode();
+            }
         }
-            
-        
-        
     } 
      
     private void SetLevelComplete()
@@ -78,9 +67,4 @@ public class SquadDetection : MonoBehaviour
         UIManager.setLevelCompleteDelegate?.Invoke(3);
         
     }
-
-
-    
-
-
 }

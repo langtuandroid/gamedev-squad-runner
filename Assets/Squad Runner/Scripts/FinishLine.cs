@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using JetSystems;
 using UnityEngine;
 
@@ -13,6 +14,6 @@ public class FinishLine : MonoBehaviour
         foreach (ParticleSystem ps in confettis)
             ps.Play();
         UIManager.AddCoins(20);
-        Audio_Manager.instance.play("Level_Complete");
+        AudioManager.Instance.PlaySFXOneShot(1);
     }
 }

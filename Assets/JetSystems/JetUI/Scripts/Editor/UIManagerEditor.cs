@@ -1,6 +1,4 @@
 ﻿#if UNITY_EDITOR
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
@@ -51,7 +49,6 @@ namespace JetSystems
             uiManager.GetComponent<Canvas>().hideFlags = HideFlags.HideInInspector;
             uiManager.GetComponent<GraphicRaycaster>().hideFlags = HideFlags.HideInInspector;
             uiManager.GetComponent<CanvasScaler>().hideFlags = HideFlags.HideInInspector;
-
         }
 
 
@@ -63,8 +60,11 @@ namespace JetSystems
             // Show the canvases
             ShowCanvases();
 
-            // Show the menu ui
+            // Show the Menu UI
             ShowMenuUI();
+            
+            // Show the LevelSelect UI
+            ShowLevelSelectUI();
 
             // Show Game UI
             ShowGameUI();
@@ -139,12 +139,13 @@ namespace JetSystems
             Utils.CategoryHeader("Canvases");
 
             Utils.ShowSerializedField(serializedObject, "MENU", "Menu");
+            Utils.ShowSerializedField(serializedObject, "LEVELSELECT", "LevelSelect");
             Utils.ShowSerializedField(serializedObject, "GAME", "Game");
             Utils.ShowSerializedField(serializedObject, "LEVELCOMPLETE", "Level Complete");
             Utils.ShowSerializedField(serializedObject, "GAMEOVER", "Gameover");
             Utils.ShowSerializedField(serializedObject, "SETTINGS", "Settings");
+            Utils.ShowSerializedField(serializedObject, "PAUSE", "Pause");
             Utils.ShowSerializedField(serializedObject, "shopManager", "Shop Manager");
-
         }
 
         private void ShowMenuUI()
@@ -153,6 +154,15 @@ namespace JetSystems
 
             // Show the needed data
             Utils.ShowSerializedField(serializedObject, "menuCoinsText");
+            Utils.ShowSerializedField(serializedObject, "PlayButton", "playButton");
+        }
+        
+        private void ShowLevelSelectUI()
+        {
+            Utils.CategoryHeader("Level Select UI");
+            
+            Utils.ShowSerializedField(serializedObject, "LevelSelectManager", "Level Manager");
+            Utils.ShowSerializedField(serializedObject, "levelSelectCoinsText");
         }
 
         private void ShowGameUI()

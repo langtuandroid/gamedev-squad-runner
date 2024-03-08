@@ -21,7 +21,7 @@ namespace JetSystems
 
         private void Awake()
         {
-            state = PlayerPrefsManager.GetSoundState() == 0 ? true : false;
+            //state = PlayerPrefsManager.GetSoundState() == 0 ? true : false;
 
             if (state)
                 TurnSoundOn();
@@ -38,18 +38,7 @@ namespace JetSystems
 
             SaveState();
         }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        
 
         void TurnSoundOn()
         {
@@ -77,7 +66,7 @@ namespace JetSystems
 
         void SaveState()
         {
-            PlayerPrefsManager.SetSoundState(state ? 0 : 1);
+           // PlayerPrefsManager.SetSoundState(state ? 0 : 1);
         }
 
         void SetSounds(int volume)
