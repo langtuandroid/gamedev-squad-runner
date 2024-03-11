@@ -48,7 +48,6 @@ namespace JetSystems
             UIManager.onNextLevelButtonPressed -= CreateLevel;
             UIManager.onRetryButtonPressed -= RetryLevel;
         }
-        
         private void IncreaseLevelIndex()
         {
             Debug.Log("_presentlevel= " +_presentlevel);
@@ -76,14 +75,15 @@ namespace JetSystems
             if (DEBUG)
                 currentLevel = levelToPlay;
 
-            if (currentLevel >= levelSequences.Length)
-            {
-                SpawnLevelSequence(Random.Range(0, levelSequences.Length));
-            }
-            else
-            {
-                SpawnLevelSequence(currentLevel);
-            }
+            SpawnLevelSequence(currentLevel);
+            // if (currentLevel >= levelSequences.Length) //For Random level
+            // {
+            //     SpawnLevelSequence(Random.Range(0, levelSequences.Length));
+            // }
+            // else
+            // {
+            //     SpawnLevelSequence(currentLevel);
+            // }
 
         }
 

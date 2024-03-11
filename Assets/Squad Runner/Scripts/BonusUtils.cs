@@ -36,7 +36,7 @@ public static class BonusUtils
                 return bonus.GetValue();
 
             case BonusType.Multiply:
-                return (currentRunnersAmount * bonus.GetValue()) - currentRunnersAmount;
+                return (currentRunnersAmount * bonus.GetValue() - currentRunnersAmount);
         }
 
         return 0;

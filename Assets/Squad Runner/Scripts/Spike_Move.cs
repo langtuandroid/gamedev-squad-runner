@@ -19,13 +19,7 @@ public class Spike_Move : MonoBehaviour
         targetPosition = transform.position.With(x: minMaxX.y);
         MoveToTargetPosition();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     private void MoveToTargetPosition()
     {
         LeanTween.move(gameObject, targetPosition, patrolDuration).setOnComplete(SetNextTargetPosition);
@@ -40,9 +34,7 @@ public class Spike_Move : MonoBehaviour
 
         MoveToTargetPosition();
     }
-
-
-
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

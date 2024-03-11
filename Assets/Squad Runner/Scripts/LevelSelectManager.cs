@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using JetSystems;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
@@ -48,29 +46,51 @@ namespace UI
         {
             //SoundManager.Instance.PlayButtonPressedSound();
             LevelSelected = PlayerPrefsManager.GetLevel();
-            if (_IsUnlockAllLevelsfc == true)
+            if (_IsUnlockAllLevelsfc)
             {
                 LevelSelected = _totalLevelsfc;
             }
             print(LevelSelected);
             PlaceLevelsfc();
         }
+        
+        public void OpeClosenLevel()
+        {
+            LevelSelected = PlayerPrefsManager.GetLevel();
+            _IsUnlockAllLevelsfc = !_IsUnlockAllLevelsfc;
+            if (_IsUnlockAllLevelsfc)
+            {
+                LevelSelected = _totalLevelsfc;
+            }
+            for(int i = 1; i <= _allLevelButtons.Count; i++)
+            {
+                if( i <= LevelSelected-1)
+                {
+                    _allLevelButtons[i].transform.GetChild(1).gameObject.SetActive(false);
+                }
+                else
+                {
+                    _allLevelButtons[i-1].transform.GetChild(1).gameObject.SetActive(true);
+                }
+            }
+            SelectLevel(LevelSelected);
+            SnapToCurrentOpenfc();
+        }
 
         public void RefreshLevelsView()
         {
-            LevelSelected = PlayerPrefsManager.GetLevel();
+            if (!_IsUnlockAllLevelsfc)
+            {
+                LevelSelected = PlayerPrefsManager.GetLevel();
+            }
             for(int i = 0; i <= _allLevelButtons.Count; i++)
             {
-                if( i <= LevelSelected)
+                if( i <= LevelSelected-1)
                 {
                     _allLevelButtons[i].transform.GetChild(1).gameObject.SetActive(false);
-                    if (i == LevelSelected)
-                    {
-                        _allLevelButtons[i].gameObject.GetComponent<Image>().sprite = selectedspritewp;
-                        currentbuttonwp = _allLevelButtons[i].gameObject;
-                    }
                 }
             }
+            SelectLevel(LevelSelected);
             SnapToCurrentOpenfc();
         }
 
@@ -85,21 +105,9 @@ namespace UI
                 button.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = i.ToString();
                 buttonLevel.SelectLevel += SelectLevel;
                 _allLevelButtons.Add(buttonLevel);
-               
-                // if( i <= LevelSelected)
-                // {
-                //     button.transform.GetChild(1).gameObject.SetActive(false);
-                //     if (i == LevelSelected)
-                //     {
-                //         button.gameObject.GetComponent<Image>().sprite = selectedspritewp;
-                //         currentbuttonwp = button;
-                //     }
-                // }
             }
 
             RefreshLevelsView();
-            //SnapToCurrentOpenfc();
-            //Invoke("SnapToCurrentOpenfc", 0.01f);
         }
         private void OnDestroy()
         {
@@ -126,6 +134,7 @@ namespace UI
                 if (button.LevelNumber == level)
                 {
                     button.Selected();
+                    currentbuttonwp = button.gameObject;
                 }
                 else
                 {

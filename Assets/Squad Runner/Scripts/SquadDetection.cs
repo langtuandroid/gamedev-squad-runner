@@ -37,7 +37,7 @@ public class SquadDetection : MonoBehaviour
         Collider collidedDoorCollider = detectedDoors[0];
         Door collidedDoor = collidedDoorCollider.GetComponentInParent<Door>();
 
-        int runnersAmountToAdd = collidedDoor.GetRunnersAmountToAdd(collidedDoorCollider, transform.childCount);
+        int runnersAmountToAdd = collidedDoor.GetRunnersAmountToAdd(collidedDoorCollider, squadFormation.transform.childCount);
         squadFormation.AddRunners(runnersAmountToAdd);
         
     }

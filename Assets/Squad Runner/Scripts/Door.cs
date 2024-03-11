@@ -55,10 +55,5 @@ public class Door : MonoBehaviour
         foreach (Collider c in doorsColliders)
             c.enabled = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
