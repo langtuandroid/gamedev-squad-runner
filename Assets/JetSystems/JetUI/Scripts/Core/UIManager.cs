@@ -147,7 +147,7 @@ namespace JetSystems
             Time.timeScale = 1f;
             gameState = GameState.MENU;
             Utils.HideAllCGs(canvases, MENU);
-            shopManager.gameObject.SetActive(false);
+            //shopManager.gameObject.SetActive(false);
         }
         
         public void SetLevelSelect()
@@ -241,8 +241,6 @@ namespace JetSystems
         {
             // Disable the shop object
             shopManager.gameObject.SetActive(false);
-
-            // Get back to the menu
             SetMenu();
         }
 

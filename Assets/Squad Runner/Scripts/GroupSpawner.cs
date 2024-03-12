@@ -12,6 +12,13 @@ public class GroupSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        while (parent.childCount > 0)
+        {
+            Transform t = parent.GetChild(0);
+            t.SetParent(null);
+            Destroy(t.gameObject);
+        }
+       
         for (int i = 0; i < amount; i++)
             Instantiate(objectToSpawn, parent);        
     }

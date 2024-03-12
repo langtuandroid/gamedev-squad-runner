@@ -1,37 +1,42 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
-namespace JetSystems
+namespace JetSystems.JetUI.Scripts.Core
 {
-
-    public class AnimatedElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class AnimatedElement : MonoBehaviour
     {
-        public LeanTweenType tweenType;
         public float duration;
+        private Button _button;
+        private Vector3 originalScale;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
-
+            _button = gameObject.GetComponent<Button>();
+            _button.onClick.AddListener(ClickEffect);
+            originalScale = transform.localScale; 
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnDestroy()
         {
-
+            _button.onClick.RemoveListener(ClickEffect);
         }
 
-        public void OnPointerDown(PointerEventData eventData)
+        private void ClickEffect()
         {
-            LeanTween.scale(gameObject, Vector3.one * 0.9f, duration).setEase(tweenType);
+            // Анімація збільшення масштабу
+            transform.DOScale(originalScale * 0.9f, duration)
+                .OnComplete(() =>
+                {
+                    transform.DOScale(originalScale, duration);
+                });
         }
 
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            LeanTween.scale(gameObject, Vector3.one, duration).setEase(tweenType);
-        }
+        // private void OnDisable()
+        // {
+        //     // При деактивації об'єкта повертаємо масштаб до початкового значення
+        //     transform.localScale = originalScale;
+        // }
     }
 }
+    

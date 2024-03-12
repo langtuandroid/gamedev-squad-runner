@@ -57,6 +57,7 @@ public class SquadDetection : MonoBehaviour
         {
             if (_runner != null)
             {
+                Debug.Log("Explode");
                 _runner.Explode();
             }
         }
