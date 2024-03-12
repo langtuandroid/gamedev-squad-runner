@@ -1,5 +1,6 @@
 ﻿using System;
 using Audio;
+using Cinemachine;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ namespace JetSystems
         public enum Orientation { Portrait, Landscape }
         public Orientation orientation;
 
-        public enum GameState { MENU, LEVELSELECT, GAME, LEVELCOMPLETE, GAMEOVER, SETTINGS, SHOP, PAUSE }
+        public enum GameState { MENU, RAEDY, LEVELSELECT, GAME, LEVELCOMPLETE, GAMEOVER, SETTINGS, SHOP, PAUSE }
         public static GameState gameState;
 
         #region Static Variables
@@ -51,7 +52,7 @@ namespace JetSystems
 
         #endregion
 
-
+        
         // Canvas Groups
         public CanvasGroup MENU;
         public CanvasGroup LEVELSELECT;
@@ -159,6 +160,7 @@ namespace JetSystems
 
         public void SetGame()
         {
+            gameState = GameState.RAEDY;
             StopRuning?.Invoke();
             Utils.HideAllCGs(canvases, GAME);
             PlayButton.SetActive(true);
@@ -188,11 +190,6 @@ namespace JetSystems
            
         }
 
-        private void AdsControl()
-        {
-          // AdManager.instance.ShowInterstitialAd();
-        } 
-
         public void SetGameover()
         {
             gameState = GameState.GAMEOVER;
@@ -214,17 +211,17 @@ namespace JetSystems
         
         public void SetPause()
         {
-            gameState = GameState.PAUSE;
-            StopRuning?.Invoke();
+            //gameState = GameState.PAUSE;
+            //StopRuning?.Invoke();
             Time.timeScale = 0f;
             Utils.EnableCG(PAUSE);
         }
         
         public void PauseDisable()
         {
-            gameState = GameState.GAME;
+            //gameState = GameState.GAME;
             Time.timeScale = 1f;
-            ActiveRuning.Invoke();
+            //ActiveRuning.Invoke();
             Utils.DisableCG(PAUSE);
         }
         
@@ -255,11 +252,12 @@ namespace JetSystems
 
         public void RetryButtonCallback()
         {
-            if (gameState == GameState.PAUSE)
-            {
-                Time.timeScale = 1f;
-                Utils.DisableCG(PAUSE);
-            }
+            Time.timeScale = 1f;
+            Utils.DisableCG(PAUSE);
+            // if (gameState == GameState.PAUSE)
+            // {
+            //     
+            // }
             int Presentlevel = PlayerPrefsManager.GetLevel();
             onRetryButtonPressed?.Invoke(Presentlevel);
             SetGame();
