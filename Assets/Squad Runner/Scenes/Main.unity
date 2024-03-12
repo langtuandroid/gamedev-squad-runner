@@ -5811,7 +5811,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.27255768, y: 0.0000002438587, z: -0.00000006908105, w: 0.9621395}
+  m_LocalRotation: {x: 0.2725573, y: 0.0000006231943, z: -0.00000017654042, w: 0.96213955}
   m_LocalPosition: {x: 0, y: 12, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6879,7 +6879,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab36bad0734c469383831232d31e351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _CinemachineVirtual: {fileID: 1066420488}
   DEBUG: 0
   levelToPlay: 1
   initialChunk: {fileID: 2203362719632443158, guid: 6dd26c848b3c1420d9df69f6bc99a085,
