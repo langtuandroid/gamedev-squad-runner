@@ -131,10 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f97ed7bf087420c813add6aa5d6c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _IconAmount: {fileID: 603837015567222831}
   objectToSpawn: {fileID: 5804927490915152909, guid: 0a09d2d1d8f9c4fcb8368298dc5a2f5b,
     type: 3}
   amount: 45
   parent: {fileID: 603837014272494935}
+  _gameObjectsEnemy: []
 --- !u!1 &603837014272494934
 GameObject:
   m_ObjectHideFlags: 0

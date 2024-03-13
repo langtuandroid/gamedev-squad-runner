@@ -3957,7 +3957,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 15
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 651037374}
@@ -3988,15 +3988,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066420487}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000029802319, y: 0.00000002397749, z: -0.000000014770134,
-    w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 46630338}
   m_Father: {fileID: 1687258585}
-  m_LocalEulerAnglesHint: {x: 0, y: -34.557003, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1112633418
 GameObject:
   m_ObjectHideFlags: 0
@@ -5811,14 +5810,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2725573, y: 0.0000006231943, z: -0.00000017654042, w: 0.96213955}
+  m_LocalRotation: {x: 0.26723832, y: 0, z: 0, w: 0.9636305}
   m_LocalPosition: {x: 0, y: 12, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1066420489}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 34.19, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 31, y: 0, z: 0}
 --- !u!114 &1687258586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68471,7 +68470,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c58985a20845045d88cd0a3ea492f685, type: 3}
   - {fileID: 21300000, guid: 312ac94e8116c4dcab573989f1878f00, type: 3}
   - {fileID: 21300000, guid: e0533966889374bc0a26f3cd5d4b6731, type: 3}
-  itemPrice: 150
+  itemPrice: 0
   backButton: {fileID: 7584128947018710072}
   unlockRandomButton: {fileID: 7584128946596654419}
   unlockRandomPriceText: {fileID: 2247907019906781110}
