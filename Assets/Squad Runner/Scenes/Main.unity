@@ -68470,7 +68470,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c58985a20845045d88cd0a3ea492f685, type: 3}
   - {fileID: 21300000, guid: 312ac94e8116c4dcab573989f1878f00, type: 3}
   - {fileID: 21300000, guid: e0533966889374bc0a26f3cd5d4b6731, type: 3}
-  itemPrice: 0
+  itemPrice: 150
   backButton: {fileID: 7584128947018710072}
   unlockRandomButton: {fileID: 7584128946596654419}
   unlockRandomPriceText: {fileID: 2247907019906781110}
