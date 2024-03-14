@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace JetSystems
 {
@@ -10,7 +8,6 @@ namespace JetSystems
         static string COINSKEY = "COINS";
         static string HEROMODELKEY = "HEROMODEL";
         static string ITEMUNLOCKEDKEY = "ITEMUNLOCKED";
-        //static string SETTINGS = "SETTINGS";
         static string LEVELKEY = "LEVEL";
 
         public static void SaveSettings(string key, bool state)
@@ -49,25 +46,12 @@ namespace JetSystems
         public static void SaveSelectHeroModel(int indexCharacter)
         { PlayerPrefs.SetInt(HEROMODELKEY, indexCharacter); }
 
-
-
-
-
+        
         public static int GetItemUnlockedState(int itemIndex)
         { return PlayerPrefs.GetInt(ITEMUNLOCKEDKEY + itemIndex); }
 
         public static void SetItemUnlockedState(int itemIndex, int state)
         { PlayerPrefs.SetInt(ITEMUNLOCKEDKEY + itemIndex, state); }
-
-
-
-
-        // public static int GetSoundState()
-        // { return PlayerPrefs.GetInt(SOUNDKEY); }
-        //
-        // public static void SetSoundState(int state)
-        // { PlayerPrefs.SetInt(SOUNDKEY, state); }
-
         
 
         public static int GetLevel()

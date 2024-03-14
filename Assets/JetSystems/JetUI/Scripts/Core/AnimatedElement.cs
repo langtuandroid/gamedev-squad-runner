@@ -24,19 +24,13 @@ namespace JetSystems.JetUI.Scripts.Core
 
         private void ClickEffect()
         {
-            // Анімація збільшення масштабу
             transform.DOScale(originalScale * 0.9f, duration)
                 .OnComplete(() =>
                 {
                     transform.DOScale(originalScale, duration);
                 });
         }
-
-        // private void OnDisable()
-        // {
-        //     // При деактивації об'єкта повертаємо масштаб до початкового значення
-        //     transform.localScale = originalScale;
-        // }
+        
     }
 }
     

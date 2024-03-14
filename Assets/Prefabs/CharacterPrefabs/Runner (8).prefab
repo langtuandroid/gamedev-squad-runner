@@ -535,11 +535,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4135315933554400660}
-  collider: {fileID: 4392264930436343828}
-  renderer: {fileID: 6308879731208564845}
-  explodeParticles: {fileID: 4909877904718061757}
-  obstaclesLayer:
+  _animatorsr: {fileID: 4135315933554400660}
+  _collidersr: {fileID: 4392264930436343828}
+  _renderersr: {fileID: 6308879731208564845}
+  _explodeParticlessr: {fileID: 4909877904718061757}
+  _obstaclesLayersr:
     serializedVersion: 2
     m_Bits: 2048
 --- !u!1 &4187466515696104758

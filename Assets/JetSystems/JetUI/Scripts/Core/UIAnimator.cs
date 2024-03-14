@@ -13,7 +13,7 @@ namespace JetSystems
         public RectTransform nextButton;
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             UIManager.onLevelCompleteSet += StartLevelCompleteAnimation;
         }
@@ -22,13 +22,7 @@ namespace JetSystems
         {
             UIManager.onLevelCompleteSet -= StartLevelCompleteAnimation;
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
+        
         public void StartLevelCompleteAnimation(int starsCount)
         {
             // Start the level complete animation coroutine
@@ -74,8 +68,7 @@ namespace JetSystems
 
             // 5. Enable the next button
             LeanTween.scale(nextButton, Vector2.one, bumpDuration).setEase(LeanTweenType.easeSpring);
-
-
+            
         }
     }
 }

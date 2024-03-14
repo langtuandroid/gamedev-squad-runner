@@ -18,20 +18,13 @@ namespace JetSystems
         {
             thisButton = GetComponent<Button>();
         }
-
-        // Start is called before the first frame update
-        void Start()
+        
+        private void Start()
         {
             if(thisButton == null)
                 thisButton = GetComponent<Button>();
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
+        
         public void Lock()
         {
             itemImage.gameObject.SetActive(false);

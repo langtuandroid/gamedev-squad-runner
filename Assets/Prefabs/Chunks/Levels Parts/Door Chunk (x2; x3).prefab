@@ -183,8 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf01a0db00b2408998382cbaf7310fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 20
-  gizmosColor: {r: 1, g: 0, b: 0, a: 1}
+  _lengthsr: 20
+  _gizmosColorsr: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &6436888066320043507
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,11 +461,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomBonuses: 0
   rightBonus:
-    bonusType: 1
-    value: 3
+    _bonusTypesr: 1
+    _valuesr: 3
   leftBonus:
-    bonusType: 1
-    value: 5
+    _bonusTypesr: 1
+    _valuesr: 5
   doorsColliders:
   - {fileID: 6436888066541043433}
   - {fileID: 6436888066320043517}
@@ -481,7 +481,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6436888067636478745}
   - component: {fileID: 6436888067636478821}
-  - component: {fileID: 6436888067636478747}
   - component: {fileID: 6436888067636478746}
   m_Layer: 8
   m_Name: Bonus Text
@@ -551,14 +550,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &6436888067636478747
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6436888067636478744}
-  m_CullTransparentMesh: 0
 --- !u!114 &6436888067636478746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -996,7 +987,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6436888067991590521}
   - component: {fileID: 6436888067991590469}
-  - component: {fileID: 6436888067991590523}
   - component: {fileID: 6436888067991590522}
   m_Layer: 8
   m_Name: Bonus Text
@@ -1066,14 +1056,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &6436888067991590523
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6436888067991590520}
-  m_CullTransparentMesh: 0
 --- !u!114 &6436888067991590522
 MonoBehaviour:
   m_ObjectHideFlags: 0

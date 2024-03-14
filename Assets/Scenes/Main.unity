@@ -2331,7 +2331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f2c6186bde7414bbba180d927a02dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runnersParent: {fileID: 1258475018}
+  _runnerParentsr: {fileID: 1258475018}
 --- !u!114 &651037379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2344,14 +2344,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f639e272a79764a00a13f61db92df109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  squadFormation: {fileID: 1258475019}
-  doorLayer:
+  _squadFormationsr: {fileID: 1258475019}
+  _doorLayersr:
     serializedVersion: 2
     m_Bits: 256
-  finishLayer:
+  _finishLayersr:
     serializedVersion: 2
     m_Bits: 1024
-  obstacleLayer:
+  _obstacleLayersr:
     serializedVersion: 2
     m_Bits: 2048
 --- !u!1 &653260035
@@ -8472,25 +8472,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6432514637353377617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &189832153721754738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4791008900979647488}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 5641407425377620280}
-  collider: {fileID: 5466715092512400568}
-  renderer: {fileID: 2352142859714346177}
-  explodeParticles: {fileID: 3677956793807793169}
-  obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!1 &191991718590095261
 GameObject:
   m_ObjectHideFlags: 0
@@ -8766,25 +8747,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &502240715036528663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4331443975980004865}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 2952152832924388848}
-  collider: {fileID: 6264579703240187710}
-  renderer: {fileID: 110290451115128193}
-  explodeParticles: {fileID: 5239093036697574836}
-  obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!4 &519536299992699744
 Transform:
   m_ObjectHideFlags: 0
@@ -8914,7 +8876,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3428832873565042961}
   - component: {fileID: 6588613003667415661}
-  - component: {fileID: 3271488566817019583}
   m_Layer: 8
   m_Name: Runner (5)
   m_TagString: Untagged
@@ -8996,7 +8957,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4447139207481305159}
   - component: {fileID: 5160366104038799021}
-  - component: {fileID: 4252566814401005366}
   m_Layer: 8
   m_Name: Runner (2)
   m_TagString: Untagged
@@ -9214,25 +9174,6 @@ Transform:
   - {fileID: 1758354761885585310}
   m_Father: {fileID: 4216326906364856166}
   m_LocalEulerAnglesHint: {x: -0.38844568, y: 7.2921505, z: -8.179986}
---- !u!114 &922375276439839789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7908516579596219109}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 3834160894373796446}
-  collider: {fileID: 6625450636162247354}
-  renderer: {fileID: 2579813057665537162}
-  explodeParticles: {fileID: 5280687627387927418}
-  obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!1 &929706909893201407
 GameObject:
   m_ObjectHideFlags: 0
@@ -9584,25 +9525,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1102860247113902522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5419792272051842138}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1761799757265287270}
-  collider: {fileID: 2725062236563535750}
-  renderer: {fileID: 1938705521239092872}
-  explodeParticles: {fileID: 5447254859526349841}
-  obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!1 &1105563151272673395
 GameObject:
   m_ObjectHideFlags: 0
@@ -10380,25 +10302,6 @@ Transform:
   - {fileID: 1311111559600331513}
   m_Father: {fileID: 7584128947661363654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1724655783090087303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6951213635771507781}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 2096966195821591695}
-  collider: {fileID: 1112559924257243441}
-  renderer: {fileID: 4033325886935237644}
-  explodeParticles: {fileID: 4079841556010201548}
-  obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!4 &1751992432429049380
 Transform:
   m_ObjectHideFlags: 0
@@ -12412,19 +12315,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2247907019325461244}
   m_CullTransparentMesh: 0
---- !u!114 &2247907019325461242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2247907019325461244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2955c09302c402e9093e8cbf39a6ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorPalette: {fileID: 11400000, guid: 18138d0713f444cf6bd55a9a4c5da8aa, type: 2}
 --- !u!114 &2247907019325461243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12466,7 +12356,6 @@ GameObject:
   - component: {fileID: 2247907019325461245}
   - component: {fileID: 2247907019325461240}
   - component: {fileID: 2247907019325461243}
-  - component: {fileID: 2247907019325461242}
   m_Layer: 5
   m_Name: Level Complete Container
   m_TagString: Untagged
@@ -12661,19 +12550,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2247907019345036656}
   m_CullTransparentMesh: 0
---- !u!114 &2247907019345036654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2247907019345036656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2955c09302c402e9093e8cbf39a6ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorPalette: {fileID: 11400000, guid: 18138d0713f444cf6bd55a9a4c5da8aa, type: 2}
 --- !u!114 &2247907019345036655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12715,7 +12591,6 @@ GameObject:
   - component: {fileID: 2247907019345036657}
   - component: {fileID: 2247907019345036652}
   - component: {fileID: 2247907019345036655}
-  - component: {fileID: 2247907019345036654}
   m_Layer: 5
   m_Name: Gameover Text Container
   m_TagString: Untagged
@@ -15124,19 +14999,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2247907020023067980}
   m_CullTransparentMesh: 0
---- !u!114 &2247907020023067977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2247907020023067980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2955c09302c402e9093e8cbf39a6ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorPalette: {fileID: 11400000, guid: 18138d0713f444cf6bd55a9a4c5da8aa, type: 2}
 --- !u!225 &2247907020023067978
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -15191,7 +15053,6 @@ GameObject:
   - component: {fileID: 2247907020023067976}
   - component: {fileID: 2247907020023067979}
   - component: {fileID: 2247907020023067978}
-  - component: {fileID: 2247907020023067977}
   m_Layer: 5
   m_Name: '[GAMEOVER]'
   m_TagString: Untagged
@@ -15429,19 +15290,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 125, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2247907020346680678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2247907020346680685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2955c09302c402e9093e8cbf39a6ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorPalette: {fileID: 11400000, guid: 18138d0713f444cf6bd55a9a4c5da8aa, type: 2}
 --- !u!114 &2247907020346680680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15527,7 +15375,6 @@ GameObject:
   - component: {fileID: 2247907020346680681}
   - component: {fileID: 2247907020346680680}
   - component: {fileID: 2247907020346680683}
-  - component: {fileID: 2247907020346680678}
   m_Layer: 5
   m_Name: '[LEVEL COMPLETE]'
   m_TagString: Untagged
@@ -17448,25 +17295,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2972276082950777972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6881495846203579870}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 8897314893275926798}
-  collider: {fileID: 152506828099369805}
-  renderer: {fileID: 5568928768937030735}
-  explodeParticles: {fileID: 5437834189393500300}
-  obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!4 &3008384565467475792
 Transform:
   m_ObjectHideFlags: 0
@@ -19602,25 +19430,6 @@ Transform:
   - {fileID: 3334853527575533747}
   m_Father: {fileID: 8471815859682412460}
   m_LocalEulerAnglesHint: {x: 25.810751, y: -2.3409548, z: -93.377754}
---- !u!114 &3271488566817019583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 643920886355948789}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 4656510736764005195}
-  collider: {fileID: 6588613003667415661}
-  renderer: {fileID: 8692470862446393076}
-  explodeParticles: {fileID: 4753926593053388019}
-  obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!4 &3297657240473262081
 Transform:
   m_ObjectHideFlags: 0
@@ -30443,25 +30252,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &4252566814401005366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698826792902613841}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 6067881581801142316}
-  collider: {fileID: 5160366104038799021}
-  renderer: {fileID: 8662341089897589851}
-  explodeParticles: {fileID: 7035054038505087906}
-  obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!1 &4255417848550743245
 GameObject:
   m_ObjectHideFlags: 0
@@ -30521,7 +30311,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1535903102759603872}
   - component: {fileID: 8082105228000025438}
-  - component: {fileID: 6417529699268509307}
   m_Layer: 8
   m_Name: Runner (6)
   m_TagString: Untagged
@@ -30587,7 +30376,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224056383210700967}
   - component: {fileID: 6264579703240187710}
-  - component: {fileID: 502240715036528663}
   m_Layer: 8
   m_Name: Runner (1)
   m_TagString: Untagged
@@ -35888,7 +35676,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1706930735685016397}
   - component: {fileID: 5466715092512400568}
-  - component: {fileID: 189832153721754738}
   m_Layer: 8
   m_Name: Runner (8)
   m_TagString: Untagged
@@ -46094,7 +45881,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3365700706569971091}
   - component: {fileID: 2725062236563535750}
-  - component: {fileID: 1102860247113902522}
   m_Layer: 8
   m_Name: Runner (3)
   m_TagString: Untagged
@@ -61665,25 +61451,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &6417529699268509307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4276819481002977503}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 630815263696578511}
-  collider: {fileID: 8082105228000025438}
-  renderer: {fileID: 8477387889041096024}
-  explodeParticles: {fileID: 6312906992587742501}
-  obstaclesLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!1 &6419217556085954106
 GameObject:
   m_ObjectHideFlags: 0
@@ -62374,7 +62141,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1985795912985090038}
   - component: {fileID: 152506828099369805}
-  - component: {fileID: 2972276082950777972}
   m_Layer: 8
   m_Name: Runner (4)
   m_TagString: Untagged
@@ -62793,7 +62559,6 @@ GameObject:
   m_Component:
   - component: {fileID: 285325845192722667}
   - component: {fileID: 1112559924257243441}
-  - component: {fileID: 1724655783090087303}
   m_Layer: 8
   m_Name: Runner (7)
   m_TagString: Untagged
@@ -68427,7 +68192,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c58985a20845045d88cd0a3ea492f685, type: 3}
   - {fileID: 21300000, guid: 312ac94e8116c4dcab573989f1878f00, type: 3}
   - {fileID: 21300000, guid: e0533966889374bc0a26f3cd5d4b6731, type: 3}
-  itemPrice: 150
+  itemPrice: 0
   backButton: {fileID: 7584128947018710072}
   unlockRandomButton: {fileID: 7584128946596654419}
   unlockRandomPriceText: {fileID: 2247907019906781110}
@@ -69703,7 +69468,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1751992432429049380}
   - component: {fileID: 6625450636162247354}
-  - component: {fileID: 922375276439839789}
   m_Layer: 8
   m_Name: Runner
   m_TagString: Untagged

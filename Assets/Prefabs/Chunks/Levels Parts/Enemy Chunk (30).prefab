@@ -131,12 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f97ed7bf087420c813add6aa5d6c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _IconAmount: {fileID: 603837015567222831}
-  objectToSpawn: {fileID: 5804927490915152909, guid: 0a09d2d1d8f9c4fcb8368298dc5a2f5b,
+  _iconAmountsr: {fileID: 603837015567222831}
+  _objectToSpawnsr: {fileID: 5804927490915152909, guid: 0a09d2d1d8f9c4fcb8368298dc5a2f5b,
     type: 3}
-  amount: 30
-  parent: {fileID: 603837014272494935}
-  _gameObjectsEnemy: []
+  _amountsr: 30
+  _parentsr: {fileID: 603837014272494935}
+  _gameObjectsEnemysr: []
 --- !u!1 &603837014272494934
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +194,6 @@ GameObject:
   m_Component:
   - component: {fileID: 603837015068419853}
   - component: {fileID: 603837015068419841}
-  - component: {fileID: 603837015068419843}
   - component: {fileID: 603837015068419842}
   m_Layer: 8
   m_Name: Group Amount Text
@@ -264,14 +263,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &603837015068419843
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603837015068419852}
-  m_CullTransparentMesh: 0
 --- !u!114 &603837015068419842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,8 +487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf01a0db00b2408998382cbaf7310fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 20
-  gizmosColor: {r: 1, g: 0, b: 0, a: 1}
+  _lengthsr: 20
+  _gizmosColorsr: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1653568906233200666
 GameObject:
   m_ObjectHideFlags: 0

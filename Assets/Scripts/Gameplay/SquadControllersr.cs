@@ -9,9 +9,9 @@ namespace Gameplay
     {
         [Header(" Managers ")]
         [SerializeField] 
-        private SquadFormation _squadFormationsr;
+        private SquadFormationsr _squadFormationsr;
         [SerializeField] 
-        private SquadDetection _squadDetectionsr;
+        private SquadDetectionsr _squadDetectionsr;
         
         [Header(" Movement Settings")]
         [SerializeField] 
@@ -87,7 +87,7 @@ namespace Gameplay
                 _allrunnerPrefabssr[_indexHeroModelsr].transform.position,
                 _allrunnerPrefabssr[_indexHeroModelsr].transform.rotation, _squadFormationsr.gameObject.transform);
             _squadFormationsr.SetCharacter(_allrunnerPrefabssr[_indexHeroModelsr]);
-            _squadDetectionsr.SetCharacter(_activeCharacterPrefabssr);
+            _squadDetectionsr.SetCharactersr(_activeCharacterPrefabssr);
         }
 
         public void StoreClickedPosition()

@@ -169,11 +169,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc0ff65d79bb54b87bb574f64c89ab1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 330949438854378879}
-  collider: {fileID: 8835958642803500977}
-  renderer: {fileID: 3307954443001859342}
-  explodeParticles: {fileID: 7267434058157417787}
-  obstaclesLayer:
+  _animatorsr: {fileID: 330949438854378879}
+  _collidersr: {fileID: 8835958642803500977}
+  _renderersr: {fileID: 3307954443001859342}
+  _explodeParticlessr: {fileID: 7267434058157417787}
+  _obstaclesLayersr:
     serializedVersion: 2
     m_Bits: 2048
 --- !u!1 &1411606453908759968
