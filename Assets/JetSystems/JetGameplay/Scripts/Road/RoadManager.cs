@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace JetSystems
 {
@@ -11,17 +12,17 @@ namespace JetSystems
         public int levelToPlay;
         private int _presentMaxOpenLevel;
 
-        [Header(" Road Chunks ")]
-        public RoadChunk initialChunk;
-        public RoadChunk finishChunk;
-        private RoadChunk previousChunk;
+        [FormerlySerializedAs("initialChunk")] [Header(" Road Chunks ")]
+        public RoadChunksr initialChunksr;
+        [FormerlySerializedAs("finishChunk")] public RoadChunksr finishChunksr;
+        private RoadChunksr _previousChunksr;
         Vector3 finishPos;
         Vector3 spawnPos;
 
         [Header(" Predefined Levels ")]
         public LevelSequence[] levelSequences;
 
-        List<RoadChunk> levelChunks = new List<RoadChunk>();
+        List<RoadChunksr> levelChunks = new List<RoadChunksr>();
 
         static RoadManager instance;
         private int _presentlevel;
@@ -91,18 +92,18 @@ namespace JetSystems
         {
             for (int i = 0; i < levelSequences[currentLevel].chunks.Length; i++)
             {
-                RoadChunk chunkToSpawn = levelSequences[currentLevel].chunks[i];
-                Instantiate(chunkToSpawn, spawnPos, Quaternion.identity, transform);
+                RoadChunksr chunksrToSpawn = levelSequences[currentLevel].chunks[i];
+                Instantiate(chunksrToSpawn, spawnPos, Quaternion.identity, transform);
 
-                spawnPos.z += chunkToSpawn.length;
-                previousChunk = chunkToSpawn;
-                levelChunks.Add(chunkToSpawn);
+                spawnPos.z += chunksrToSpawn.Lengthsr;
+                _previousChunksr = chunksrToSpawn;
+                levelChunks.Add(chunksrToSpawn);
             }
 
             // We can then spawn the finish chunk
-            Instantiate(finishChunk, spawnPos, Quaternion.identity, transform);
+            Instantiate(finishChunksr, spawnPos, Quaternion.identity, transform);
 
-            levelChunks.Add(finishChunk);
+            levelChunks.Add(finishChunksr);
 
             // Store the finish pos for progression use
             finishPos = spawnPos;
@@ -131,8 +132,8 @@ namespace JetSystems
 
             for (int i = 0; i < levelChunks.Count; i++)
             {
-                RoadChunk spawnedChunk = Instantiate(levelChunks[i], spawnPos, Quaternion.identity, transform);
-                spawnPos.z += levelChunks[i].length;
+                RoadChunksr spawnedChunksr = Instantiate(levelChunks[i], spawnPos, Quaternion.identity, transform);
+                spawnPos.z += levelChunks[i].Lengthsr;
             }
         }
 
@@ -150,6 +151,6 @@ namespace JetSystems
     [System.Serializable]
     public struct LevelSequence
     {
-        public RoadChunk[] chunks;
+        public RoadChunksr[] chunks;
     }
 }

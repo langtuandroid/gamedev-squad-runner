@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Gameplay;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace JetSystems
@@ -19,8 +21,8 @@ namespace JetSystems
 
         [Header(" Managers ")]
         public UIManager uiManager;
-        [SerializeField]
-        private SquadController _squadController;
+        [FormerlySerializedAs("_squadController")] [SerializeField]
+        private SquadControllersr squadControllersr;
         [Header(" Settings ")]
         public Transform itemParent;
         public Transform buttonsParent;
@@ -175,7 +177,7 @@ namespace JetSystems
         private void ChooseCharacter(int indexCharacter)
         {
             PlayerPrefsManager.SaveSelectHeroModel(indexCharacter);
-            _squadController.SelectNewCharacter();
+            squadControllersr.SelectNewCharacter();
         } 
 
         // Update is called once per frame

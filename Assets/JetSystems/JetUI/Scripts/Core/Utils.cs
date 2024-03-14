@@ -1,20 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
 #if UNITY_EDITOR
 using UnityEditor;
-using UnityEngine.UI;
 #endif
 
 namespace JetSystems
 {
-
-
     public static class Utils
     {
-
         public static Vector2 GetScreenCenter()
         {
             return new Vector2((float)Screen.width / 2, (float)Screen.height / 2);

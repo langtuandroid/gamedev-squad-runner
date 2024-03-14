@@ -10,9 +10,7 @@ namespace JetSystems
     {
         UIManager uiManager;
         CanvasScaler scaler;
-
- 
-
+        
         int orientationPreference;
 
         private void OnEnable()
@@ -161,7 +159,7 @@ namespace JetSystems
         {
             Utils.CategoryHeader("Level Select UI");
             
-            Utils.ShowSerializedField(serializedObject, "LevelSelectManager", "Level Manager");
+            Utils.ShowSerializedField(serializedObject, "levelSelectManagersr", "Level Manager");
             Utils.ShowSerializedField(serializedObject, "levelSelectCoinsText");
         }
 

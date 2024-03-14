@@ -1,10 +1,9 @@
 ﻿using System;
-using Audio;
-using Cinemachine;
+using Settings;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+
 
 namespace JetSystems
 {
@@ -51,7 +50,6 @@ namespace JetSystems
         public static event Action StopRuning;
 
         #endregion
-
         
         // Canvas Groups
         public CanvasGroup MENU;
@@ -63,14 +61,12 @@ namespace JetSystems
         public CanvasGroup PAUSE;
         public ShopManager shopManager;
         public CanvasGroup[] canvases;
-
-      
-
+        
         // Menu UI
         public Text menuCoinsText;
         
         // Level Select UI
-        public LevelSelectManager LevelSelectManager;
+        public LevelSelectManagersr levelSelectManagersr;
         public Text levelSelectCoinsText;
 
         // Game UI
@@ -89,54 +85,34 @@ namespace JetSystems
         {
             if (instance == null)
                 instance = this;
-
-            // Get the coins amount
+            
             COINS = PlayerPrefsManager.GetCoins();
             UpdateCoins();
         }
-
-        // Start is called before the first frame update
-        void Start()
+        
+        private void Start()
 		{
-            // Store the canvases
             canvases = new CanvasGroup[] { MENU,LEVELSELECT, GAME, LEVELCOMPLETE, GAMEOVER, SETTINGS, PAUSE };
-
-            // Configure the delegates
             ConfigureDelegates();
-
-            // Set the menu at start
             SetMenu();
 		}
 
         private void ConfigureDelegates()
         {
-            // Basic events
-           // setMenuDelegate += SetMenu;
-           // setGameDelegate += SetGame;
             setLevelCompleteDelegate += SetLevelComplete;
             setGameoverDelegate += SetGameover;
-            //setSettingsDelegate += SetSettings;
-
-            // Progress bar events
             updateProgressBarDelegate += UpdateProgressBar;
         }
 
         private void OnDestroy()
         {
-
-            // Basic events
-            //setMenuDelegate -= SetMenu;
-            //setGameDelegate -= SetGame;
             setLevelCompleteDelegate -= SetLevelComplete;
             setGameoverDelegate -= SetGameover;
-            //setSettingsDelegate -= SetSettings;
-
-            // Progress bar events
             updateProgressBarDelegate -= UpdateProgressBar;
         }
 
-        // Update is called once per frame
-        void Update()
+        
+        private void Update()
 		{
             if (Input.GetKeyDown(KeyCode.C))
                 SetLevelComplete();
@@ -148,14 +124,13 @@ namespace JetSystems
             Time.timeScale = 1f;
             gameState = GameState.MENU;
             Utils.HideAllCGs(canvases, MENU);
-            //shopManager.gameObject.SetActive(false);
         }
         
         public void SetLevelSelect()
         {
             gameState = GameState.LEVELSELECT;
             Utils.HideAllCGs(canvases, LEVELSELECT);
-            LevelSelectManager.RefreshLevelsView();
+            levelSelectManagersr.RefreshLevelsViewsr();
         }
 
         public void SetGame()
@@ -165,16 +140,15 @@ namespace JetSystems
             Utils.HideAllCGs(canvases, GAME);
             PlayButton.SetActive(true);
             progressBar.value = 0;
-            levelText.text = "Level " + (LevelSelectManager.LevelSelected);
+            levelText.text = "Level " + (levelSelectManagersr.LevelSelectedsr);
         }
         public void StartGame()
         {
             gameState = GameState.GAME;
             ActiveRuning.Invoke();
             progressBar.value = 0;
-            // Update the level text
-            levelText.text = "Level " + LevelSelectManager.LevelSelected;
-            AudioManager.Instance.PlaySFXOneShot(0);
+            levelText.text = "Level " + levelSelectManagersr.LevelSelectedsr;
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
         }
 
         public void SetLevelComplete(int starsCount = 3)
@@ -183,11 +157,7 @@ namespace JetSystems
             Utils.HideAllCGs(canvases, LEVELCOMPLETE);
             onLevelCompleteSet?.Invoke(starsCount);
             LevelComplete?.Invoke();
-            
-           // Audio_Manager.instance.play("Level_Complete");
-            //Invoke("AdsControl", 2f);
-            
-           
+           //win AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
         }
 
         public void SetGameover()
@@ -195,39 +165,39 @@ namespace JetSystems
             gameState = GameState.GAMEOVER;
             Utils.HideAllCGs(canvases, GAMEOVER);
             onGameoverSet?.Invoke();
-            AudioManager.Instance.PlaySFXOneShot(2);
-            //Invoke("AdsControl", 2f);
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(2);
         }
 
         public void SetSettings()
         {
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
             Utils.EnableCG(SETTINGS);
         }
         
         public void CloseSettings()
         {
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
             Utils.DisableCG(SETTINGS);
         }
         
         public void SetPause()
         {
-            //gameState = GameState.PAUSE;
-            //StopRuning?.Invoke();
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
             Time.timeScale = 0f;
             Utils.EnableCG(PAUSE);
         }
         
         public void PauseDisable()
         {
-            //gameState = GameState.GAME;
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
             Time.timeScale = 1f;
-            //ActiveRuning.Invoke();
             Utils.DisableCG(PAUSE);
         }
         
 
         public void SetShop()
         {
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
             gameState = GameState.SHOP;
             shopManager.gameObject.SetActive(true);
             Utils.HideAllCGs(canvases);
@@ -236,28 +206,25 @@ namespace JetSystems
 
         public void CloseShop()
         {
-            // Disable the shop object
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
             shopManager.gameObject.SetActive(false);
             SetMenu();
         }
 
         public void NextLevelButtonCallback()
         {
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
             StopRuning?.Invoke();
             int Nextlevel = PlayerPrefsManager.GetLevel() + 1;
             onNextLevelButtonPressed?.Invoke(Nextlevel);
             SetLevelSelect();
-            //SceneManager.LoadScene(0);
         }
 
         public void RetryButtonCallback()
         {
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
             Time.timeScale = 1f;
             Utils.DisableCG(PAUSE);
-            // if (gameState == GameState.PAUSE)
-            // {
-            //     
-            // }
             int Presentlevel = PlayerPrefsManager.GetLevel();
             onRetryButtonPressed?.Invoke(Presentlevel);
             SetGame();
@@ -281,13 +248,8 @@ namespace JetSystems
 
         public static void AddCoins(int amount)
         {
-            // Increase the amount of coins
             COINS += amount;
-
-            // Update the coins
             instance.UpdateCoins();
-
-            // Save the amount of coins
             PlayerPrefsManager.SaveCoins(COINS);
         }
 
