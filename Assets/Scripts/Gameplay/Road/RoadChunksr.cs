@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 
-namespace JetSystems
+namespace Gameplay.Road
 {
     public class RoadChunksr : MonoBehaviour
     {
-        [Header(" Chunks Settings ")]
         [SerializeField]
         private  float _lengthsr = 20;
-        [Header(" Gizmos ")]
         [SerializeField]
         private Color _gizmosColorsr = Color.red;
 
