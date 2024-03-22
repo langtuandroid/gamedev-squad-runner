@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Settings;
+using TMPro;
 using UnityEngine;
 
 namespace Gameplay
@@ -45,7 +46,7 @@ namespace Gameplay
         public int GetRunnersAmountToAddsr(Collider collidedDoor, int currentRunnersAmount)
         {
             DisableDoorssr();
-
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(4);
             Bonus bonus;
 
             if (collidedDoor.transform.position.x > 0)

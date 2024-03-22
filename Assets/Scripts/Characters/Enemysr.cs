@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Settings;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -70,6 +71,7 @@ namespace Characters
 
             if(Vector3.Distance(transform.position, _targetRunnersr.transform.position) < 1f)
             {
+                AudioManagersr.Instancesr.PlaySFXOneShotsr(3);
                 _targetRunnersr.Explodesr();
                 Explodesr();
             }

@@ -1,5 +1,6 @@
 ﻿using Characters;
 using JetSystems;
+using Settings;
 using UnityEngine;
 
 namespace Gameplay
@@ -72,7 +73,7 @@ namespace Gameplay
         private void SetLevelCompletesr()
         {
             UIManager.setLevelCompleteDelegate?.Invoke(3);
-        
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(5);
         }
         
         private bool IsPositivesr(int number)

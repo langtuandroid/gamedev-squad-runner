@@ -4831,7 +4831,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5029,13 +5029,15 @@ MonoBehaviour:
   _audioMixer: {fileID: 24100000, guid: c1d6b5ff83fa94ae497d2a93042ceb15, type: 2}
   _musicAudioSourcesr: {fileID: 1358361885}
   _musicTrackssr:
-  - {fileID: 8300000, guid: 24c7d4a534d7d487c9e216142be1261b, type: 3}
+  - {fileID: 8300000, guid: fa14052aca2fa3b46b2d69ab35fc55d5, type: 3}
   _sfxAudioSourcesr: {fileID: 1358361884}
   _sfxTrackssr:
-  - {fileID: 8300000, guid: 6f7ba71f0fa9b406f9d6bb8415cbcc2b, type: 3}
+  - {fileID: 8300000, guid: 999a2c4d108e54e5791c2e453bfa3824, type: 3}
   - {fileID: 8300000, guid: e539ecd2cbccc4be786a7c33890078ad, type: 3}
-  - {fileID: 8300000, guid: 79dcf502a0c8d42ff946768eae13c51e, type: 3}
-  - {fileID: 8300000, guid: 5da5b1d77861944fb8db632b4e11669e, type: 3}
+  - {fileID: 8300000, guid: 496f15e7993e148e492df2273be574ea, type: 3}
+  - {fileID: 8300000, guid: 64dd4b1a98adb43f68ffbb7bc4e69858, type: 3}
+  - {fileID: 8300000, guid: 34c4fdbbafd7448ad80414e17a72746c, type: 3}
+  - {fileID: 8300000, guid: 40a6022603247284b86903337a22406c, type: 3}
 --- !u!1 &1369698572
 GameObject:
   m_ObjectHideFlags: 0
@@ -6204,7 +6206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isUnlockAllLevelssr: 0
-  _totalLevelssr: 50
+  _totalLevelssr: 48
   _scrollRectsr: {fileID: 39126212}
   _contentsr: {fileID: 1768938242}
   _levelButtonPrefabsr: {fileID: 8333143280321084405, guid: aee0e4764b038473f8c93d9a063133c3,
@@ -7126,6 +7128,7 @@ MonoBehaviour:
     - {fileID: 5172244739811952353, guid: 29c64b48772d148399ec5fbe46135d95, type: 3}
     - {fileID: 1653568906070673892, guid: 1b31d5520b23343ce8137e902e99cb09, type: 3}
     - {fileID: 5172244739811952353, guid: c5e924b6f202844f2a6ec5ce9b9b7aec, type: 3}
+    - {fileID: 1653568906070673892, guid: fb0cba5cb894e467ba353275a7407b0c, type: 3}
   - chunks:
     - {fileID: 5172244739811952353, guid: 29c64b48772d148399ec5fbe46135d95, type: 3}
     - {fileID: 1653568906070673892, guid: 7d93059341f2e440f9333322536a2bfc, type: 3}
@@ -71782,7 +71785,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
