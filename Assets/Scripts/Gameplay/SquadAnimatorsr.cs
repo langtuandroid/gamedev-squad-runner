@@ -13,12 +13,15 @@ namespace Gameplay
         {
             UIManager.ActiveRuning += StartRunningsr;
             UIManager.StopRuning += StopRunningsr;
+            UIManager.LevelComplete += WinRunningsr;
         }
 
         private void OnDestroy()
         {
             UIManager.ActiveRuning -= StartRunningsr;
             UIManager.StopRuning -= StopRunningsr;
+            UIManager.LevelComplete -= WinRunningsr;
+            
         }
         
         private void StartRunningsr()
@@ -36,6 +39,15 @@ namespace Gameplay
             {
                 Runnersr runnersr = _runnerParentsr.GetChild(i).GetComponent<Runnersr>();
                 runnersr.StopRunningsr();
+            }
+        }
+        
+        private void WinRunningsr()
+        {
+            for (int i = 0; i < _runnerParentsr.childCount; i++)
+            {
+                Runnersr runnersr = _runnerParentsr.GetChild(i).GetComponent<Runnersr>();
+                runnersr.SetAsWinnersr();
             }
         }
         

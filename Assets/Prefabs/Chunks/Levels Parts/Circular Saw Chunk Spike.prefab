@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf01a0db00b2408998382cbaf7310fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 20
-  gizmosColor: {r: 1, g: 0, b: 0, a: 1}
+  _lengthsr: 20
+  _gizmosColorsr: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1653568906233200666
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 90d14941b7af7431f93fc00090943d41, type: 2}
+  - {fileID: 2100000, guid: 2ed5ac5bee18ffe4396d871af249a6b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

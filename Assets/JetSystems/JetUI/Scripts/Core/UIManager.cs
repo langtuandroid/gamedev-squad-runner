@@ -1,5 +1,6 @@
 ﻿using System;
 using Settings;
+using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -63,23 +64,23 @@ namespace JetSystems
         public CanvasGroup[] canvases;
         
         // Menu UI
-        public Text menuCoinsText;
+        public TextMeshProUGUI menuCoinsText;
         
         // Level Select UI
         public LevelSelectManagersr levelSelectManagersr;
-        public Text levelSelectCoinsText;
+        public TextMeshProUGUI levelSelectCoinsText;
 
         // Game UI
         public Slider progressBar;
-        public Text gameCoinsText;
-        public Text levelText;
+        public TextMeshProUGUI gameCoinsText;
+        public TextMeshProUGUI levelText;
         public GameObject PlayButton;
 
         // Shop UI
-        public Text shopCoinsText;
+        public TextMeshProUGUI shopCoinsText;
 
         // Level Complete UI
-        public Text levelCompleteCoinsText;
+        //public Text levelCompleteCoinsText;
         
         private void Awake()
         {
@@ -240,7 +241,7 @@ namespace JetSystems
             menuCoinsText.text = Utils.FormatAmountString(COINS);
             gameCoinsText.text = menuCoinsText.text;
             shopCoinsText.text = menuCoinsText.text;
-            levelCompleteCoinsText.text = menuCoinsText.text;
+           // levelCompleteCoinsText.text = menuCoinsText.text;
             levelSelectCoinsText.text = menuCoinsText.text;
         }
 

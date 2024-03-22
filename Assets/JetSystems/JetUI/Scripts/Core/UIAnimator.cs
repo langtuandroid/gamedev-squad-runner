@@ -7,8 +7,8 @@ namespace JetSystems
     public class UIAnimator : MonoBehaviour
     {
         // Level Complete Elements
-        public RectTransform topRibbon;
-        public RectTransform levelCompleteTextContainer;
+       // public RectTransform topRibbon;
+       // public RectTransform levelCompleteTextContainer;
         public RectTransform starsContainer;
         public RectTransform nextButton;
 
@@ -32,10 +32,10 @@ namespace JetSystems
         IEnumerator LevelCompleteAnimationCoroutine(int starsCount)
         {
             // 1. Hide or more all the components
-            Vector2 topRibbonInitialPos = topRibbon.anchoredPosition;
-            topRibbon.anchoredPosition += Vector2.up * 250;
+           // Vector2 topRibbonInitialPos = topRibbon.anchoredPosition;
+           // topRibbon.anchoredPosition += Vector2.up * 250;
 
-            levelCompleteTextContainer.localScale = Vector2.zero;
+           // levelCompleteTextContainer.localScale = Vector2.zero;
 
             // Hide the golden stars
             for (int i = 0; i < starsContainer.childCount; i++)
@@ -48,14 +48,14 @@ namespace JetSystems
             nextButton.localScale = Vector2.zero;
 
             // 2. Move the top Ribbon down
-            float ribbonDownDuration = 0.5f;
-            LeanTween.move(topRibbon, topRibbonInitialPos, ribbonDownDuration).setEase(LeanTweenType.easeSpring);
-            yield return new WaitForSeconds(ribbonDownDuration);
+          //  float ribbonDownDuration = 0.5f;
+          //  LeanTween.move(topRibbon, topRibbonInitialPos, ribbonDownDuration).setEase(LeanTweenType.easeSpring);
+           // yield return new WaitForSeconds(ribbonDownDuration);
 
             // 3. Scale the level complete container
-            float levelCompleteContainerDuration = 0.3f;
-            LeanTween.scale(levelCompleteTextContainer, Vector2.one, levelCompleteContainerDuration).setEase(LeanTweenType.easeSpring);
-            yield return new WaitForSeconds(levelCompleteContainerDuration);
+           // float levelCompleteContainerDuration = 0.3f;
+          //  LeanTween.scale(levelCompleteTextContainer, Vector2.one, levelCompleteContainerDuration).setEase(LeanTweenType.easeSpring);
+           // yield return new WaitForSeconds(levelCompleteContainerDuration);
 
             // 4. Enable the amount of stars
             float bumpDuration = 0.2f;

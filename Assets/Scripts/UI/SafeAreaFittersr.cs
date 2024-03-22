@@ -12,7 +12,6 @@ namespace UI
 
         private void Awake()
         {
-            Application.targetFrameRate = 60;
             _fittedRectTransformsr = GetComponent<RectTransform>();
             _safeRectComponentsr = Screen.safeArea;
             _minAnchorVectorsr = _safeRectComponentsr.position;

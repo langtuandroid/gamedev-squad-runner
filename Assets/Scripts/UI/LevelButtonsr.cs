@@ -1,5 +1,6 @@
 using System;
 using Settings;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +13,16 @@ namespace UI
         [SerializeField] 
         private int _levelNumbersr;
         [SerializeField] 
+        private TextMeshProUGUI _levelNumber;
+        [SerializeField] 
+        private TextMeshProUGUI _levelNumberLock;
+        [SerializeField] 
         private Sprite _selectedSpritesr;
         [SerializeField] 
         private Sprite _unSelectedSpritesr;
 
         private Button _buttonsr;
+
         public int LevelNumbersr
         {
             get => _levelNumbersr;
@@ -39,6 +45,13 @@ namespace UI
             AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
             if (gameObject.transform.GetChild(1).gameObject.activeInHierarchy) return;
             SelectLevelsr.Invoke(LevelNumbersr);
+        }
+
+        public void SetNumberLevel(int numberLevel)
+        {
+            LevelNumbersr = numberLevel;
+            _levelNumber.text = numberLevel.ToString();
+            _levelNumberLock.text = numberLevel.ToString();
         }
 
         public void Selected()

@@ -45,9 +45,9 @@ namespace JetSystems
         public void SetSelected(bool state)
         {
             if (state)
-                contour.color = new Color(1, 1, 1, 1);
+                contour.gameObject.SetActive(true);
             else
-                contour.color = new Color(1, 1, 1, 0.15f);
+                contour.gameObject.SetActive(false);;
         }
 
         public void SetContainerSprite(Sprite containerSprite)

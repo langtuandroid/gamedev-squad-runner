@@ -114,8 +114,7 @@ namespace UI
             {
                 GameObject button = Instantiate(_levelButtonPrefabsr, _contentsr.transform);
                 var buttonLevel = button.GetComponent<LevelButtonsr>();
-                buttonLevel.LevelNumbersr = i;
-                button.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = i.ToString();
+                buttonLevel.SetNumberLevel(i);
                 buttonLevel.SelectLevelsr += SelectLevelsr;
                 _allLevelButtonssr.Add(buttonLevel);
             }

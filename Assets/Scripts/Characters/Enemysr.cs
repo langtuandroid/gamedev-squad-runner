@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Characters
 {
@@ -15,6 +17,9 @@ namespace Characters
         [SerializeField]
         private Animator _animatorsr;
         
+        [SerializeField]
+        private List<GameObject> _enemyModels;
+        
         private Runnersr _targetRunnersr;
         
         private void Update()
@@ -27,6 +32,17 @@ namespace Characters
             {
                 AttackRunnersr();
             }
+        }
+
+        private void Start()
+        {
+            InitEnemy();
+        }
+
+        private void InitEnemy()
+        {
+            int randome = Random.Range(0, _enemyModels.Count);
+            _enemyModels[randome].SetActive(true);
         }
 
         private void FindTargetRunnersr()

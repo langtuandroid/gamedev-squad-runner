@@ -182,7 +182,7 @@ namespace JetSystems
         private void ShowLevelCompleteUI()
         {
             Utils.CategoryHeader("Level Complete");
-            Utils.ShowSerializedField(serializedObject, "levelCompleteCoinsText");
+//            Utils.ShowSerializedField(serializedObject, "levelCompleteCoinsText");
         }
     }
 }

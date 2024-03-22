@@ -39,12 +39,17 @@ namespace Characters
         public void StopRunningsr()
         {
             _animatorsr.SetInteger("State", 0);
-        
         }
 
         public void SetAsTargetsr()
         {
             _isTargetedsr = true;
+        }
+        
+        public void SetAsWinnersr()
+        {
+            Debug.Log("WIN_CALL");
+            _animatorsr.SetTrigger("Win");
         }
 
         public bool IsTargetedsr()

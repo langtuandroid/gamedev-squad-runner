@@ -6,7 +6,7 @@ namespace JetSystems.JetUI.Scripts.Core
 {
     public class AnimatedElement : MonoBehaviour
     {
-        public float duration;
+        public float duration = 0.1f;
         private Button _button;
         private Vector3 originalScale;
 
@@ -30,7 +30,6 @@ namespace JetSystems.JetUI.Scripts.Core
                     transform.DOScale(originalScale, duration);
                 });
         }
-        
     }
 }
     
