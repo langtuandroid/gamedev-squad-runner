@@ -2487,8 +2487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66aebcc48a2b4519ae822c8e0ec6f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _urlForPrivacyPolicysr: https://docs.google.com/document/d/1qWcIQnKPMWTvdwwE6fAA0FoPNxjxise2/edit?usp=sharing&ouid=101204207249069986994&rtpof=true&sd=true
-  _urlForTermsOfUsesr: https://docs.google.com/document/d/1iydLWpTp4pOPlzaPsArJU0ytyjaWaaJF/edit?usp=sharing&ouid=101204207249069986994&rtpof=true&sd=true
+  _urlForPrivacyPolicysr: https://docs.google.com/document/d/1pyTRrWOMKelYNYoe2-QLKyYL7XijD3Tl/edit?usp=sharing&ouid=107258682841599243711&rtpof=true&sd=true
+  _urlForTermsOfUsesr: https://docs.google.com/document/d/1Kcf5-8p_6-LCqSScSNR7hY7JV-8C1gK1/edit?usp=sharing&ouid=107258682841599243711&rtpof=true&sd=true
   _privacyButtonsr: {fileID: 3079414174382113536}
   _termsButtonsr: {fileID: 1282813199}
 --- !u!1 &750838578
