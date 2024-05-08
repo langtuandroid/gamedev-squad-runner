@@ -6,6 +6,7 @@ namespace JetSystems
     public static class PlayerPrefsManager
     {
         static string COINSKEY = "COINS";
+        static string DIAMONDSKEY = "DIAMONDS";
         static string HEROMODELKEY = "HEROMODEL";
         static string ITEMUNLOCKEDKEY = "ITEMUNLOCKED";
         static string LEVELKEY = "LEVEL";
@@ -28,10 +29,22 @@ namespace JetSystems
 
 
         public static int GetCoins()
-        { return PlayerPrefs.GetInt(COINSKEY); }
+        { return PlayerPrefs.GetInt(COINSKEY,800); }
 
         public static void SaveCoins(int coinsAmount)
-        { PlayerPrefs.SetInt(COINSKEY, coinsAmount); }
+        {
+            PlayerPrefs.SetInt(COINSKEY, coinsAmount);
+            PlayerPrefs.Save();
+        }
+        
+        public static int GetDiamonds()
+        { return PlayerPrefs.GetInt(DIAMONDSKEY); }
+
+        public static void SaveDiamonds(int diamondsAmount)
+        {
+            PlayerPrefs.SetInt(DIAMONDSKEY, diamondsAmount); 
+            PlayerPrefs.Save();
+        }
 
         public static int GetSelectHeroModel()
         {
@@ -44,7 +57,10 @@ namespace JetSystems
         }
 
         public static void SaveSelectHeroModel(int indexCharacter)
-        { PlayerPrefs.SetInt(HEROMODELKEY, indexCharacter); }
+        {
+            PlayerPrefs.SetInt(HEROMODELKEY, indexCharacter);
+            PlayerPrefs.Save();
+        }
 
         
         public static int GetItemUnlockedState(int itemIndex)

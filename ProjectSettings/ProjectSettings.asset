@@ -161,7 +161,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.noname.digital.gamedev.squadrunner
-    iPhone: com.noname.digital.gamedev.squadrunner
+    iPhone: com.gamedev.digital.test
   buildNumber:
     Standalone: 0
     VisionOS: 0

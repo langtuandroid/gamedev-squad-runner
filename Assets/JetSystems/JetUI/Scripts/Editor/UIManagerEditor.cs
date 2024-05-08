@@ -70,6 +70,9 @@ namespace JetSystems
             // Show Shop UI
             ShowShopUI();
 
+            // Show Diamonds Shop UI
+            ShowDiamondsShopUI();
+
             // Show Level Complete UI
             ShowLevelCompleteUI();
 
@@ -142,6 +145,7 @@ namespace JetSystems
             Utils.ShowSerializedField(serializedObject, "LEVELCOMPLETE", "Level Complete");
             Utils.ShowSerializedField(serializedObject, "GAMEOVER", "Gameover");
             Utils.ShowSerializedField(serializedObject, "SETTINGS", "Settings");
+            Utils.ShowSerializedField(serializedObject, "DIAMONDSSHOP", "Diamonds Shop");
             Utils.ShowSerializedField(serializedObject, "PAUSE", "Pause");
             Utils.ShowSerializedField(serializedObject, "shopManager", "Shop Manager");
         }
@@ -152,6 +156,7 @@ namespace JetSystems
 
             // Show the needed data
             Utils.ShowSerializedField(serializedObject, "menuCoinsText");
+            Utils.ShowSerializedField(serializedObject, "menuDiamondsText");
             Utils.ShowSerializedField(serializedObject, "PlayButton", "playButton");
         }
         
@@ -177,6 +182,13 @@ namespace JetSystems
             Utils.CategoryHeader("Shop");
 
             Utils.ShowSerializedField(serializedObject, "shopCoinsText");
+            Utils.ShowSerializedField(serializedObject, "shopDiamondsText");
+        }
+        
+        private void ShowDiamondsShopUI()
+        {
+            Utils.CategoryHeader("ShopDiamonds");
+            Utils.ShowSerializedField(serializedObject, "shopDiamondsViewText");
         }
 
         private void ShowLevelCompleteUI()

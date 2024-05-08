@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using JoshH.UI;
+
 
 namespace JetSystems
 {
@@ -12,7 +10,16 @@ namespace JetSystems
         public Image containerImage;
         public Image itemImage;
         public Image contour;
-        Button thisButton;
+        [SerializeField]
+        private int price;
+        [SerializeField]
+        private TypeItem _typeItem;
+        private Button thisButton;
+
+        public TypeItem ItemType => _typeItem;
+
+        public int Price => price;
+
 
         private void Awake()
         {
@@ -47,12 +54,19 @@ namespace JetSystems
             if (state)
                 contour.gameObject.SetActive(true);
             else
-                contour.gameObject.SetActive(false);;
+                contour.gameObject.SetActive(false);
         }
 
         public void SetContainerSprite(Sprite containerSprite)
         {
             containerImage.sprite = containerSprite;
         }
+    }
+
+    public enum TypeItem
+    {
+        ForCoins,
+        ForDiamonds,
+        ForAds
     }
 }

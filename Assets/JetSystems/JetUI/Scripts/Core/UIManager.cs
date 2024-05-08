@@ -1,9 +1,11 @@
 ﻿using System;
+using Integration;
 using Settings;
 using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 
 namespace JetSystems
@@ -19,6 +21,7 @@ namespace JetSystems
         #region Static Variables
 
         public static int COINS;
+        public static int DIAMONDS;
         public static UIManager instance;
 
         #endregion
@@ -59,12 +62,14 @@ namespace JetSystems
         public CanvasGroup LEVELCOMPLETE;
         public CanvasGroup GAMEOVER;
         public CanvasGroup SETTINGS;
+        public CanvasGroup DIAMONDSSHOP;
         public CanvasGroup PAUSE;
         public ShopManager shopManager;
         public CanvasGroup[] canvases;
         
         // Menu UI
         public TextMeshProUGUI menuCoinsText;
+        public TextMeshProUGUI menuDiamondsText;
         
         // Level Select UI
         public LevelSelectManagersr levelSelectManagersr;
@@ -78,22 +83,43 @@ namespace JetSystems
 
         // Shop UI
         public TextMeshProUGUI shopCoinsText;
+        public TextMeshProUGUI shopDiamondsText;
+        
+        // Shop Diamonds UI
+        
+        public TextMeshProUGUI shopDiamondsViewText;
 
         // Level Complete UI
         //public Text levelCompleteCoinsText;
         
+        
+        private const string IntegrationsCounter = "IntegrationsGameSceneCounter";
+        private int loadLevelCount = 0; 
+    
+        private IAPService _iapService;
+        private AdMobController _adMobController;
+
+        [Inject]
+        private void Construct(IAPService iapService, AdMobController adMobController)
+        {
+            _iapService = iapService;
+            _adMobController = adMobController;
+        }
+
         private void Awake()
         {
             if (instance == null)
                 instance = this;
             
             COINS = PlayerPrefsManager.GetCoins();
+            DIAMONDS = PlayerPrefsManager.GetDiamonds();
             UpdateCoins();
+            UpdateDiamonds();
         }
         
         private void Start()
 		{
-            canvases = new CanvasGroup[] { MENU,LEVELSELECT, GAME, LEVELCOMPLETE, GAMEOVER, SETTINGS, PAUSE };
+            canvases = new CanvasGroup[] { MENU,LEVELSELECT, GAME, LEVELCOMPLETE, GAMEOVER, SETTINGS, DIAMONDSSHOP, PAUSE };
             ConfigureDelegates();
             SetMenu();
 		}
@@ -118,6 +144,28 @@ namespace JetSystems
             if (Input.GetKeyDown(KeyCode.C))
                 SetLevelComplete();
 		}
+        
+        private void ShowIntegration()
+        {
+            loadLevelCount = PlayerPrefs.GetInt(IntegrationsCounter, 0);
+            loadLevelCount++;
+            
+            if (loadLevelCount % 2 == 0)
+            {
+                _adMobController.ShowInterstitialAd();
+            }
+            else if (loadLevelCount % 3 == 0)
+            {
+                _iapService.ShowSubscriptionPanel();
+            }
+
+            if (loadLevelCount >= 3)
+            {
+                loadLevelCount = 0;
+            }
+            PlayerPrefs.SetInt(IntegrationsCounter, loadLevelCount);
+            PlayerPrefs.Save();
+        }
 
         public void SetMenu()
         {
@@ -142,6 +190,7 @@ namespace JetSystems
             PlayButton.SetActive(true);
             progressBar.value = 0;
             levelText.text = "Level " + (levelSelectManagersr.LevelSelectedsr);
+            ShowIntegration();
         }
         public void StartGame()
         {
@@ -179,6 +228,28 @@ namespace JetSystems
         {
             AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
             Utils.DisableCG(SETTINGS);
+        }
+        
+        public void SetDiamondsShop()
+        {
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
+            Utils.EnableCG(DIAMONDSSHOP);
+            UpdateDiamonds();
+            if ( gameState == GameState.SHOP)
+            {
+                shopManager.gameObject.SetActive(false);
+            }
+        }
+        
+        public void CloseDiamondsShop()
+        {
+            AudioManagersr.Instancesr.PlaySFXOneShotsr(0);
+            Utils.DisableCG(DIAMONDSSHOP);
+            UpdateDiamonds();
+            if ( gameState == GameState.SHOP)
+            {
+                shopManager.gameObject.SetActive(true);
+            }
         }
         
         public void SetPause()
@@ -236,13 +307,19 @@ namespace JetSystems
             progressBar.value = value;
         }
 
-        private void UpdateCoins()
+        public void UpdateCoins()
         {
             menuCoinsText.text = Utils.FormatAmountString(COINS);
             gameCoinsText.text = menuCoinsText.text;
             shopCoinsText.text = menuCoinsText.text;
-           // levelCompleteCoinsText.text = menuCoinsText.text;
             levelSelectCoinsText.text = menuCoinsText.text;
+        }
+        
+        public void UpdateDiamonds()
+        {
+            menuDiamondsText.text = Utils.FormatAmountString(DIAMONDS);
+            shopDiamondsText.text = menuDiamondsText.text;
+            shopDiamondsViewText.text = menuDiamondsText.text;
         }
 
         #region Static Methods
@@ -252,6 +329,27 @@ namespace JetSystems
             COINS += amount;
             instance.UpdateCoins();
             PlayerPrefsManager.SaveCoins(COINS);
+        }
+        
+        public static void RemoveCoins(int amount)
+        {
+            COINS -= amount;
+            PlayerPrefsManager.SaveCoins(COINS);
+            instance.UpdateCoins();
+        }
+        
+        public static void AddDiamonds(int amount)
+        {
+            DIAMONDS += amount;
+            PlayerPrefsManager.SaveDiamonds(DIAMONDS);
+            instance.UpdateDiamonds();
+        }
+        
+        public static void RemoveDiamonds(int amount)
+        {
+            DIAMONDS -= amount;
+            PlayerPrefsManager.SaveDiamonds(DIAMONDS);
+            instance.UpdateDiamonds();
         }
 
         public static bool IsGame()

@@ -8,10 +8,8 @@ namespace Settings
 {
     public class LinkManager : MonoBehaviour
     {
-        [SerializeField]
-        private string _urlForPrivacyPolicysr;
         [SerializeField] 
-        private string _urlForTermsOfUsesr;
+        private GDPRLinksHolder _gdprLinksHolder;
         [SerializeField]
         private Button _privacyButtonsr;
         [SerializeField] 
@@ -22,19 +20,19 @@ namespace Settings
         private void Awake()
         {
             if (_termsButtonsr != null)
-                _termsButtonsr.onClick.AddListener(() => OpenUrlsr(_urlForTermsOfUsesr));
+                _termsButtonsr.onClick.AddListener(() => OpenUrlsr(_gdprLinksHolder.TermsOfUse));
 
             if (_privacyButtonsr != null)
-                _privacyButtonsr.onClick.AddListener(() => OpenUrlsr(_urlForPrivacyPolicysr));
+                _privacyButtonsr.onClick.AddListener(() => OpenUrlsr(_gdprLinksHolder.PrivacyPolicy));
         }
 
         private void OnDestroy()
         {
             if (_termsButtonsr != null)
-                _termsButtonsr.onClick.RemoveListener(() => OpenUrlsr(_urlForTermsOfUsesr));
+                _termsButtonsr.onClick.RemoveListener(() => OpenUrlsr(_gdprLinksHolder.TermsOfUse));
 
             if (_privacyButtonsr != null)
-                _privacyButtonsr.onClick.RemoveListener(() => OpenUrlsr(_urlForPrivacyPolicysr));
+                _privacyButtonsr.onClick.RemoveListener(() => OpenUrlsr(_gdprLinksHolder.PrivacyPolicy));
         }
 
         private void Start()

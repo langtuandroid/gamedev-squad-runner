@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using Gameplay;
+using GoogleMobileAds.Api;
+using Integration;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
+using Zenject;
 
 namespace JetSystems
 {
@@ -11,8 +14,6 @@ namespace JetSystems
     public class ShopManager : MonoBehaviour
     {
         #region Delegates
-        public delegate void OnRewardedVideoPressed(int amount);
-        public static OnRewardedVideoPressed onRewardedVideoPressed;
 
         public delegate void OnItemSelected(int itemIndex);
         public static OnItemSelected onItemSelected;
@@ -21,170 +22,225 @@ namespace JetSystems
 
         [Header(" Managers ")]
         public UIManager uiManager;
-        [FormerlySerializedAs("_squadController")] [SerializeField]
+        [SerializeField]
         private SquadControllersr squadControllersr;
         [Header(" Settings ")]
         public Transform itemParent;
-        public Transform buttonsParent;
         public Sprite[] itemsSprites;
-        ShopButton[] shopButtons;
+        [SerializeField]
+        private List<ShopButton> _allShopItemButtons;
+        [SerializeField]
+        private Sprite _coinSprite;
+        [SerializeField]
+        private Sprite _diamondSprite;
+        [SerializeField]
+        private Image _lockImage;
+        [SerializeField]
+        private Text _lockPrice;
+        [SerializeField]
+        private GameObject _lockbtn;
+        [SerializeField]
+        private GameObject _unlockCoinbtn;
+        [SerializeField]
+        private GameObject _unlockDiamondbtn;
+        [SerializeField]
+        private GameObject _watchAdbtn;
+        [SerializeField]
+        private Text _priceCoinText;
+        [SerializeField]
+        private Text _priceDiamondText;
 
         [Header(" Unlocking ")]
-        public int itemPrice;
-        public GameObject backButton;
-        public Button unlockRandomButton;
-        public Text unlockRandomPriceText;
         bool unlocking;
 
         [Header(" Rendering ")]
         public Transform rotatingItemParent;
 
         [Header(" Design ")]
-        public Sprite lockedSprite;
         public Sprite unlockedSprite;
 
         [Header(" Sounds ")]
         public AudioSource randomSound;
-        public AudioSource unlockedItemSound;
 
-        [Header(" Rewarded Video ")]
-        public int rewardAmount;
-        public Text rewardVideoAmountText;
-
-        // Start is called before the first frame update
-        void Start()
+        private int _selectedItem;
+        private AdMobController _adMobController;
+        private RewardedAdController _rewardedAdController;
+        
+        [Inject]
+        private void Construct(AdMobController adMobController, RewardedAdController rewardedAdController)
         {
-            // Configure some Texts
-            rewardVideoAmountText.text = "+" + rewardAmount;
-            unlockRandomPriceText.text = itemPrice.ToString();
-
-            // Load data
+            _adMobController = adMobController;
+            _rewardedAdController = rewardedAdController;
+        }
+            
+        private void Start()
+        {
             LoadData();
-
-            // Add the listeners to the buttons
             AddListeners();
         }
 
+        private void OnDestroy()
+        {
+            RemoveListeners();
+        }
+
+
         private void OnEnable()
         {
-            OpenShop();
-            ShowItem(PlayerPrefsManager.GetSelectHeroModel());
+            LoadData();
+            SelectItem(PlayerPrefsManager.GetSelectHeroModel());
         }
 
-
-
-        void LoadData()
+        private void LoadData()
         {
-            // Unlock the first item
-            UnlockItem(0);
-
-            shopButtons = new ShopButton[buttonsParent.childCount];
-
-            if(buttonsParent.childCount > itemsSprites.Length)
+            for (int i = 0; i < _allShopItemButtons.Count; i++)
             {
-                Debug.LogError("Not enough Sprites added to the itemsSprites Array, configuration Impossible");
-                return;
-            }
-
-            for (int i = 0; i < buttonsParent.childCount; i++)
-            {
-                // Is this item unlocked ?
-                bool unlocked = IsItemUnlocked(i);
-                ShopButton shopButton = buttonsParent.GetChild(i).GetComponent<ShopButton>();
-                shopButton.Configure(itemsSprites[i]);
+                _allShopItemButtons[i].Configure(itemsSprites[i]);
 
                 if (i == PlayerPrefsManager.GetSelectHeroModel())
-                    shopButton.SetSelected(true);
-
-                shopButtons[i] = shopButton;
-
-                if (unlocked)
                 {
-                    // Change the color of the gradient
-                    shopButton.SetContainerSprite(unlockedSprite);
+                    _allShopItemButtons[i].SetSelected(true);
+                    CheckUnlockStatus(i);
                 }
-                else
-                {
-                    // Set the button as not interactable
-                    shopButton.Lock();
-
-                    shopButton.SetContainerSprite(lockedSprite);
-                }
+                _allShopItemButtons[i].SetContainerSprite(unlockedSprite);
             }
-
-
-            // Configure the unlock button
-            if (UIManager.COINS < itemPrice)
-                unlockRandomButton.interactable = false;
-
-
+           // UnlockSkin(0);
         }
 
-        public void OpenShop()
+        private void CheckUnlockStatus(int index)
         {
-            // If we don't have enough money, disable the unlock button
-            if (UIManager.COINS >= itemPrice)
-                unlockRandomButton.interactable = true;
-            else
-                unlockRandomButton.interactable = false;
 
-            // Hide the unlock button if all the items are already unlocked
-            if (AllItemsUnlocked())
-                unlockRandomButton.gameObject.SetActive(false);
-        }
-
-        bool AllItemsUnlocked()
-        {
-            int unlockedCounter = 0;
-
-            for (int i = 0; i < buttonsParent.childCount; i++)
+            if (IsItemUnlocked(index))
             {
-                if (IsItemUnlocked(i))
-                    unlockedCounter++;
+                _lockbtn.SetActive(false);
+                _unlockCoinbtn.SetActive(false);
+                _unlockDiamondbtn.SetActive(false);
+                _watchAdbtn.SetActive(false);
+                ChooseCharacter(index);
             }
+            else
+            {
 
-            return unlockedCounter == buttonsParent.childCount;
+                if (_allShopItemButtons[index].ItemType == TypeItem.ForCoins)
+                {
+                    _watchAdbtn.SetActive(false);
+                    _unlockDiamondbtn.SetActive(false);
+                    _priceCoinText.text = _allShopItemButtons[index].Price.ToString();
+                    if (UIManager.COINS >= _allShopItemButtons[index].Price)
+                    {
+                        _lockbtn.SetActive(false);
+                        _unlockCoinbtn.SetActive(true);
+                    }
+                    else
+                    {
+                        _lockImage.sprite = _coinSprite;
+                        _lockPrice.text = _allShopItemButtons[index].Price.ToString();
+                        _lockbtn.SetActive(true);
+                        _unlockCoinbtn.SetActive(false);
+                    }
+                }
+                if (_allShopItemButtons[index].ItemType == TypeItem.ForDiamonds)
+                {
+                    _watchAdbtn.SetActive(false);
+                    
+                    _priceDiamondText.text = _allShopItemButtons[index].Price.ToString();
+                    if (UIManager.DIAMONDS >= _allShopItemButtons[index].Price)
+                    {
+                        _lockbtn.SetActive(false);
+                        _unlockDiamondbtn.SetActive(true);
+                    }
+                    else
+                    {
+                        _lockImage.sprite = _diamondSprite;
+                        _lockPrice.text = _allShopItemButtons[index].Price.ToString();
+                        _lockbtn.SetActive(true);
+                        _unlockDiamondbtn.SetActive(false);
+                    }
+                }
+                if (_allShopItemButtons[index].ItemType == TypeItem.ForAds)
+                {
+                    _lockbtn.SetActive(false);
+                    _unlockCoinbtn.SetActive(false);
+                    _unlockDiamondbtn.SetActive(false);
+                    _watchAdbtn.SetActive(true);
+                }
+            }
         }
 
-        void AddListeners()
+        public void UnlockSkin(int indexItem)
         {
-            // Add listeners to the buttons
+            if ( _allShopItemButtons[indexItem].ItemType == TypeItem.ForCoins)
+            {
+                UIManager.RemoveCoins(_allShopItemButtons[indexItem].Price);
+            }
+            if ( _allShopItemButtons[indexItem].ItemType == TypeItem.ForDiamonds)
+            {
+                UIManager.RemoveDiamonds(_allShopItemButtons[indexItem].Price);
+            }
+            UnlockItem(indexItem);
+            CheckUnlockStatus(indexItem);
+        }
+        
+
+        private void AddListeners()
+        {
+            _unlockCoinbtn.GetComponent<Button>().onClick.AddListener(UnlockCharacter);
+            _unlockDiamondbtn.GetComponent<Button>().onClick.AddListener(UnlockCharacter);
+            _watchAdbtn.GetComponent<Button>().onClick.AddListener(ShowRewardedAd);
+            _rewardedAdController.GetRewarded += UnlockCharacter;
             int k = 0;
-            foreach (Button b in buttonsParent.GetComponentsInChildren<Button>())
+            foreach (var ShopButton in _allShopItemButtons)
             {
                 int _k = k;
-                b.onClick.AddListener(delegate { SelectItem(_k); });
+                ShopButton.GetComponent<Button>().onClick.AddListener(delegate { SelectItem(_k); });
                 k++;
             }
         }
 
-        void SelectItem(int itemIndex)
+        private void RemoveListeners()
         {
-            for (int i = 0; i < shopButtons.Length; i++)
+            _unlockCoinbtn.GetComponent<Button>().onClick.RemoveListener(UnlockCharacter);
+            _unlockDiamondbtn.GetComponent<Button>().onClick.RemoveListener(UnlockCharacter);
+            _watchAdbtn.GetComponent<Button>().onClick.RemoveListener(ShowRewardedAd);
+            _rewardedAdController.GetRewarded -= UnlockCharacter;
+            int k = 0;
+            foreach (var ShopButton in _allShopItemButtons)
+            {
+                int _k = k;
+                ShopButton.GetComponent<Button>().onClick.RemoveListener(delegate { SelectItem(_k); });
+                k++;
+            }
+        }
+        
+
+        private void SelectItem(int itemIndex)
+        {
+            for (int i = 0; i < _allShopItemButtons.Count; i++)
             {
                 if (i == itemIndex)
                 {
-                    shopButtons[i].SetSelected(true);
-                    //ChooseCharacter(i);
+                    _allShopItemButtons[i].SetSelected(true);
+                    _selectedItem = itemIndex;
                 }
                 else
-                    shopButtons[i].SetSelected(false);
+                {
+                    _allShopItemButtons[i].SetSelected(false);
+                }
             }
-
+            CheckUnlockStatus(itemIndex);
             ShowItem(itemIndex);
         }
+
+        public void UnlockCharacter()
+        {
+            UnlockSkin(_selectedItem);
+        }
+        
 
         private void ChooseCharacter(int indexCharacter)
         {
             PlayerPrefsManager.SaveSelectHeroModel(indexCharacter);
             squadControllersr.SelectNewCharacter();
-        } 
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-                UnlockItem();
         }
 
         public void CloseShop()
@@ -192,122 +248,9 @@ namespace JetSystems
             uiManager.CloseShop();
         }
 
-        public void UnlockItem()
+
+        private void ShowItem(int itemIndex)
         {
-            if (!unlocking)
-            {
-                unlocking = true;
-
-                // If we can click, it means we have enough money
-                StartCoroutine("UnlockItemCoroutine");
-
-                // Re Configure the shop
-                OpenShop();
-            }
-        }
-
-        List<int> unlockableItems;
-        IEnumerator UnlockItemCoroutine()
-        {
-            // At first, make a list of all possible items we can unlock
-
-            // Diminish the amount of money
-            UIManager.AddCoins(-itemPrice);
-
-
-            if (unlockableItems == null)
-                unlockableItems = new List<int>();
-            else
-                unlockableItems.Clear();
-
-            for (int i = 0; i < buttonsParent.childCount; i++)
-            {
-                if (!IsItemUnlocked(i))
-                    unlockableItems.Add(i);
-            }
-
-            // If we don't have any unlockable items at this point
-            // It means all of them have been unlocked
-            if (unlockableItems.Count > 0)
-            {
-                // First phase, loop around
-                float suspenseDuration = 3f;
-                float timer = 0;
-                float diminish = Time.deltaTime;
-
-                float timeToSwitch = Time.deltaTime;
-                float switchTimer = 0;
-
-                int unlockableIndex = unlockableItems[0];
-
-                for (int i = 0; i < shopButtons.Length; i++)
-                {
-                    if (i == unlockableIndex)
-                        shopButtons[i].SetSelected(true);
-                    else
-                        shopButtons[i].SetSelected(false);
-                }
-
-
-                while (timer < suspenseDuration)
-                {
-
-                    switchTimer += Time.deltaTime;
-
-                    if (switchTimer >= timeToSwitch)
-                    {
-                        timeToSwitch += Time.deltaTime;
-                        switchTimer = 0;
-
-                        // Switch
-                        unlockableIndex = unlockableItems[Random.Range(0, unlockableItems.Count)];
-
-                        Switch(unlockableIndex);
-
-                        if (randomSound != null)
-                            randomSound.Play();
-
-                    }
-
-                    timer += Time.deltaTime;
-                    yield return null;
-                }
-
-
-                // Unlock that unlockable index Item
-
-
-                Switch(unlockableIndex);
-                shopButtons[unlockableIndex].Unlock();
-                shopButtons[unlockableIndex].SetContainerSprite(unlockedSprite);
-
-                UnlockItem(unlockableIndex);
-                ShowItem(unlockableIndex);
-
-                if (unlockedItemSound != null)
-                    unlockedItemSound.Play();
-            }
-
-            unlocking = false;
-
-            yield return null;
-        }
-
-        void Switch(int index)
-        {
-            for (int i = 0; i < shopButtons.Length; i++)
-            {
-                if (i == index)
-                    shopButtons[i].SetSelected(true);
-                else
-                    shopButtons[i].SetSelected(false);
-            }
-        }
-
-
-        void ShowItem(int itemIndex)
-        {
-            // Callback message
             onItemSelected?.Invoke(itemIndex);
 
             for (int i = 0; i < rotatingItemParent.childCount; i++)
@@ -315,35 +258,32 @@ namespace JetSystems
                 if (i == itemIndex)
                 {
                     rotatingItemParent.GetChild(i).gameObject.SetActive(true);
-
-                    //TODO : This is replaced by the callback up here
-                    ChooseCharacter(itemIndex);
                     itemParent.GetChild(i).gameObject.SetActive(true);
+                    //ChooseCharacter(itemIndex);
                 }
                 else
                 {
                     rotatingItemParent.GetChild(i).gameObject.SetActive(false);
-                    //itemParent.GetChild(i).gameObject.SetActive(false);
                 }
             }
 
             if (randomSound != null)
+            {
                 randomSound.Play();
-
-
+            }
         }
 
-        public void RewardVideoButtonCallback()
+        public void ShowRewardedAd()
         {
-            onRewardedVideoPressed?.Invoke(rewardAmount);
+            _adMobController.ShowRewardedAd();
         }
 
-        bool IsItemUnlocked(int itemIndex)
+        private bool IsItemUnlocked(int itemIndex)
         {
             return PlayerPrefsManager.GetItemUnlockedState(itemIndex) == 1;
         }
 
-        void UnlockItem(int itemIndex)
+        private void UnlockItem(int itemIndex)
         {
             PlayerPrefsManager.SetItemUnlockedState(itemIndex, 1);
         }
