@@ -47,15 +47,7 @@ public class DiamondShop : MonoBehaviour
     }
     
 
-    // private void UpdateViewDiamonds()
-    // {
-    //     foreach (var diamondsHolder in _allDiamondInfoPanel)
-    //     {
-    //         diamondsHolder.UpdateDiamondsView();
-    //     }
-    // }
-    
-    
+
     private void BuyPack1()
     {
         _iapService.BuyPack1();
